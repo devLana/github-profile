@@ -1,0 +1,18 @@
+#navbar {
+  background-color: rgb(31, 16, 2);
+  .logo {
+    display: inline-flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    height: 65px;
+    width: 60px;
+    font-weight: bold;
+    text-align: center;
+    .logo__one {
+      color: #fff;
+    }
+    .logo__two {
+      color: #5dc6e0;
+    }
+  }
+}
