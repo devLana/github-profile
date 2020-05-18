@@ -1,18 +1,36 @@
 #navbar {
   background-color: rgb(31, 16, 2);
+}
+
+.nav-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+
+  a {
+    text-decoration: none;
+  }
+
   .logo {
     display: inline-flex;
     flex-flow: column nowrap;
     justify-content: center;
     height: 65px;
-    width: 60px;
+    width: 55px;
     font-weight: bold;
-    text-align: center;
+    text-align: left;
+
     .logo__one {
       color: #fff;
     }
+
     .logo__two {
       color: #5dc6e0;
     }
+  }
+
+  #search-box {
+    width: calc(100% - 75px);
   }
 }
