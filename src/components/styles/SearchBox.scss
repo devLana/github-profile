@@ -4,6 +4,7 @@
   height: 35px;
   border-radius: 10px;
   position: relative;
+
   #search {
     height: 100%;
     width: calc(100% - 40px);
@@ -12,12 +13,14 @@
     padding-left: 10px;
     background-color: transparent;
     font-family: 'Source Sans Pro', sans-serif;
+    font-size: 15px;
     position: absolute;
     left: 0;
     top: 0;
   }
+
   #search-btn {
-    background-color: rgb(114, 7, 7);
+    background-color: #0a282f;
     height: 100%;
     width: 40px;
     border: none;
@@ -26,9 +29,14 @@
     top: 0;
     right: 0;
     cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: #5dc6e0;
+    }
   }
 }
 
 #search-btn:hover .graphics {
-  stroke: #5dc6e0;
+  stroke: #0a282f;
 }

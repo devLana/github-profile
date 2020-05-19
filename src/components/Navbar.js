@@ -4,13 +4,22 @@ import SearchBox from "./SearchBox";
 import "./styles/Navbar.scss";
 
 const Navbar = () => {
-  const page = "home";
+  const path = window.location.pathname;
+  let user;
+
+  if (path !== "/") {
+    const newPathName = path.slice(1);
+    const index = newPathName.indexOf("/");
+    user = (index !== -1)
+      ? newPathName.substr(0, index)
+      : newPathName.substr(0);
+  }
 
   return (
   <nav id="navbar">
     <div className="container">
       {
-        page === "home"
+        path === "/"
           ? (
             <div className="nav-container">
               <Link to="/">
@@ -28,7 +37,7 @@ const Navbar = () => {
                   <span className="logo__two">Profile</span>
                 </div>
               </Link>
-              <SearchBox />
+              <SearchBox initialUser={user} />
             </div>
           )
       }
