@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBox from "./SearchBox";
-import "./styles/Navbar.scss";
+import "../styles/Navbar.scss";
 
 const Navbar = () => {
+  const [errMsg, setErrMsg] = useState("");
+  const [err, setErr] = useState(false);
+
   const path = window.location.pathname;
   let user;
 
@@ -14,6 +17,22 @@ const Navbar = () => {
       ? newPathName.substr(0, index)
       : newPathName.substr(0);
   }
+
+  const setError = str => {
+    switch (str) {
+      case "Not Found":
+        setErr(true);
+        setErrMsg("This user could not be found.");
+        setTimeout(() => setErr(false), 3250);
+        break;
+      case "Offline":
+        setErr(true);
+        setErrMsg("Network error. Please try again later!");
+        setTimeout(() => setErr(false), 3250);
+        break;
+      default:
+    }
+  };
 
   return (
   <nav id="navbar">
@@ -37,7 +56,8 @@ const Navbar = () => {
                   <span className="logo__two">Profile</span>
                 </div>
               </Link>
-              <SearchBox initialUser={user} />
+              <SearchBox initialUser={user} setError={setError} />
+              { err && <div className="error-box">{errMsg}</div> }
             </div>
           )
       }

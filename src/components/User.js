@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import Layout from "./Layout";
-import "./styles/User.scss";
+import "../styles/User.scss";
 
 const User = () => {
   const { user } = useParams();

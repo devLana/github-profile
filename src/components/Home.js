@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Layout from "./Layout";
 import SearchBox from "./SearchBox";
-import "./styles/Home.scss";
+import "../styles/Home.scss";
 
 
 const Home = () => {
@@ -10,13 +10,12 @@ const Home = () => {
 
     switch (str) {
       case "Not Found":
-        setErrMsg("This user was not found");
+        setErrMsg("This user could not be found.");
         break;
       case "Offline":
-        setErrMsg("It appears you are offline! Please check your network and try again.");
+        setErrMsg("Network error. Please try again later!");
         break;
       default:
-        setErrMsg("Search for a user");
     }
   };
 
