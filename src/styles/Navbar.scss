@@ -2,12 +2,10 @@
   background-color: rgb(31, 16, 2);
 }
 
-.nav-container {
+#nav--container {
   display: flex;
-  flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
-  position: relative;
 
   a {
     text-decoration: none;
@@ -15,7 +13,7 @@
 
   .logo {
     display: inline-flex;
-    flex-flow: column nowrap;
+    flex-direction: column;
     justify-content: center;
     height: 65px;
     width: 55px;
@@ -36,22 +34,25 @@
     border-color: #000;
   }
 
-  .error-box {
-    padding: 15px;
-    width: 100%;
+  .nav__error {
+    padding: 5px;
+    width: 85%;
     background-color: hsla(192, 82%, 13%, 0.5);
     color: #000;
-    font-weight: bold;
+    font: {
+      weight: bold;
+      size: 13px
+    }
+    text-align: center;
     border: 2px solid #5dc6e0;
-    border-radius: 10px;
+    border-radius: 30px;
     position: absolute;
-    top: 65px;
-    right: 0;
+    bottom: 0;
     animation: slide 0.25s linear forwards;
   }
 }
 
 @keyframes slide {
   from {transform: translateY(0); }
-  to {transform: translateY(8px); }
+  to {transform: translateY(-17px); }
 }

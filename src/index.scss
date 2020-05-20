@@ -11,6 +11,7 @@ body {
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
+
   .container {
     height: 100%;
     width: 85%;
@@ -21,5 +22,10 @@ body {
 
 #main {
   background-color: #f1ecdf;
-  height: calc(100vh - 65px)
+  height: calc(100vh - 65px);
+
+  h1 {
+    font-size: 22px;
+    margin-bottom: 25px;
+  }
 }

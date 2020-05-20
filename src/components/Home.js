@@ -6,27 +6,19 @@ import "../styles/Home.scss";
 
 const Home = () => {
   const [errMsg, setErrMsg] = useState("");
-  const setError = str => {
 
-    switch (str) {
-      case "Not Found":
-        setErrMsg("This user could not be found.");
-        break;
-      case "Offline":
-        setErrMsg("Network error. Please try again later!");
-        break;
-      default:
-    }
-  };
+  const setError = () => setErrMsg("Network error! Please try again later.");
 
-  const unSetError = () => setErrMsg(null);
+  const unSetError = () => setErrMsg("");
 
   return (
     <Layout>
-      <h1>Search for a Github user</h1>
-      <div className="search-box__container">
-        <SearchBox setError={setError} unSetError={unSetError} />
-        <p id="search__error">{errMsg}</p>
+      <div id="home--container">
+        <h1>Search for a Github user</h1>
+        <div className="search-box--container">
+          <SearchBox setError={setError} unSetError={unSetError} />
+          <p id="search__error">{errMsg}</p>
+        </div>
       </div>
     </Layout>
   );

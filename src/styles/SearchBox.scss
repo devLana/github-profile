@@ -12,15 +12,17 @@
     border-radius: 7px 0 0 7px;
     padding-left: 10px;
     background-color: transparent;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: 15px;
+    font: {
+      family: 'Source Sans Pro', sans-serif;
+      size: 15px
+    }
     position: absolute;
     left: 0;
     top: 0;
   }
 
   #search-btn {
-    background-color: #0a282f;
+    background-color: transparent;
     height: 100%;
     width: 40px;
     border: none;
@@ -31,12 +33,8 @@
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
 
-    &:hover {
-      background-color: #5dc6e0;
+    &:hover .graphics {
+      stroke: #5dc6e0;
     }
   }
-}
-
-#search-btn:hover .graphics {
-  stroke: #0a282f;
 }

@@ -18,49 +18,25 @@ const Navbar = () => {
       : newPathName.substr(0);
   }
 
-  const setError = str => {
-    switch (str) {
-      case "Not Found":
-        setErr(true);
-        setErrMsg("This user could not be found.");
-        setTimeout(() => setErr(false), 3250);
-        break;
-      case "Offline":
-        setErr(true);
-        setErrMsg("Network error. Please try again later!");
-        setTimeout(() => setErr(false), 3250);
-        break;
-      default:
-    }
+  const setError = () => {
+    setErr(true);
+    setErrMsg("Network error! Please try again later.");
+    setTimeout(() => setErr(false), 3000);
   };
 
   return (
   <nav id="navbar">
     <div className="container">
-      {
-        path === "/"
-          ? (
-            <div className="nav-container">
-              <Link to="/">
-                <div className="logo">
-                  <span className="logo__one">Github</span>
-                  <span className="logo__two">Profile</span>
-                </div>
-              </Link>
-            </div>
-          ) : (
-            <div className="nav-container">
-              <Link to="/">
-                <div className="logo">
-                  <span className="logo__one">Github</span>
-                  <span className="logo__two">Profile</span>
-                </div>
-              </Link>
-              <SearchBox initialUser={user} setError={setError} />
-              { err && <div className="error-box">{errMsg}</div> }
-            </div>
-          )
-      }
+      <div id="nav--container">
+        <Link to="/">
+          <div className="logo">
+            <span className="logo__one">Github</span>
+            <span className="logo__two">Profile</span>
+          </div>
+        </Link>
+        { path !== "/" && <SearchBox initialUser={user} setError={setError} /> }
+        { err && <div className="nav__error">{errMsg}</div> }
+      </div>
     </div>
   </nav>
   );

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import { Redirect } from "react-router-dom";
 import "../styles/SearchBox.scss";
 
 const SearchBox = props => {
   const [user, setUser] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
   const inputElement = useRef(null);
   const searchBox = useRef(null);
@@ -17,66 +18,31 @@ const SearchBox = props => {
 
   const change = e => setUser(e.target.value);
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      inputElement.current.blur();
+      submit();
+    }
+  };
+
   const inputFocus = () => {
     searchBox.current.style.borderColor = "#000";
     unSetError();
   };
 
-  const handleKeyPress = e => {
-    if (e.key === "Enter") {
-      submit();
-      inputElement.current.blur();
-    }
-  }
-
-  const handleNavKeyPress = e => {
-    if (e.key === "Enter") {
-      navSubmit();
-      inputElement.current.blur();
-    }
-  };
-
-  const submit = async () => {
+  const submit = () => {
     const search = inputElement.current.value.trim();
 
     if (!navigator.onLine) {
-      setError("Offline");
-      searchBox.current.style.borderColor = "#f00";
+      if (path === "/") searchBox.current.style.borderColor = "#f00";
+      setError();
       return;
     } else if (search === "") {
       return;
     }
 
-    try {
-      const fetchUser = await axios.get(`https://api.github.com/users/${search}`);
-      window.location = `/${fetchUser.data.login}`;
-    } catch (err) {
-      if (err.response.status === 404) {
-        setError("Not Found");
-        searchBox.current.style.borderColor = "#f00";
-      }
-    }
-  };
-
-  const navSubmit = async () => {
-    const search = inputElement.current.value.trim();
-
-    if (!navigator.onLine) {
-      setError("Offline");
-      return;
-    } else if (search === "") {
-      return;
-    }
-
-    try {
-      const fetchUser = await axios.get(`https://api.github.com/users/${search}`);
-      window.location = `/${fetchUser.data.login}`;
-    } catch (err) {
-      if (err.response.status === 404) {
-        setError("Not Found");
-      }
-    }
-
+    setUser(search);
+    setRedirect(true);
   };
 
   return (
@@ -95,14 +61,7 @@ const SearchBox = props => {
                 onKeyUp={handleKeyPress}
                 ref={inputElement}
               />
-              <button id="search-btn" onClick={submit}>
-                <svg width="100%" height="100%">
-                  <g className="graphics" fill="none" strokeWidth="2px" stroke="#fff">
-                    <circle cx="21" cy="14" r="6" />
-                    <line x1="13" y1="26" x2="18" y2="19" />
-                  </g>
-                </svg>
-              </button>
+              <Button func={submit} />
             </div>
           ) : (
             <div id="search-box">
@@ -112,21 +71,28 @@ const SearchBox = props => {
                 value={user}
                 id="search"
                 onChange={change}
-                onKeyUp={handleNavKeyPress}
+                onKeyUp={handleKeyPress}
                 ref={inputElement}
               />
-              <button id="search-btn" onClick={navSubmit}>
-                <svg width="100%" height="100%">
-                  <g className="graphics" fill="none" strokeWidth="2px" stroke="#fff">
-                    <circle cx="21" cy="14" r="6" />
-                    <line x1="13" y1="26" x2="18" y2="19" />
-                  </g>
-                </svg>
-              </button>
+              <Button func={submit} />
             </div>
           )
       }
+      { redirect && <Redirect to={`/${user}`} /> }
     </>
+  );
+};
+
+const Button = ({func}) => {
+  return (
+    <button id="search-btn" onClick={func}>
+      <svg width="100%" height="100%">
+        <g className="graphics" fill="none" strokeWidth="2px" stroke="#000">
+          <circle cx="21" cy="14" r="6" />
+          <line x1="13" y1="26" x2="18" y2="19" />
+        </g>
+      </svg>
+    </button>
   );
 };
 
