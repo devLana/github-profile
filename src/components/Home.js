@@ -5,6 +5,7 @@ import "../styles/Home.scss";
 
 
 const Home = () => {
+  document.title = "Github Profile";
   const [errMsg, setErrMsg] = useState("");
 
   const setError = () => setErrMsg("Network error! Please try again later.");

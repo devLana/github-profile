@@ -13,7 +13,6 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
 
   .container {
-    height: 100%;
     width: 85%;
     max-width: 1100px;
     margin: 0 auto;
@@ -21,11 +20,18 @@ body {
 }
 
 #main {
-  background-color: #f1ecdf;
-  height: calc(100vh - 65px);
-
   h1 {
     font-size: 22px;
     margin-bottom: 25px;
+  }
+
+  h2 {
+    font-size: 20px;
+    margin-bottom: 25px;
+  }
+
+  h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
   }
 }

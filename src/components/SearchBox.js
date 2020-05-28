@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Redirect } from "react-router-dom";
 import "../styles/SearchBox.scss";
 
 const SearchBox = props => {
   const [user, setUser] = useState("");
-  const [redirect, setRedirect] = useState(false);
 
   const inputElement = useRef(null);
   const searchBox = useRef(null);
@@ -41,8 +39,7 @@ const SearchBox = props => {
       return;
     }
 
-    setUser(search);
-    setRedirect(true);
+    window.location = `/${search}`;
   };
 
   return (
@@ -78,7 +75,6 @@ const SearchBox = props => {
             </div>
           )
       }
-      { redirect && <Redirect to={`/${user}`} /> }
     </>
   );
 };
