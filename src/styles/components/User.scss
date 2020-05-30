@@ -1,0 +1,243 @@
+.not-found {
+  padding: 30px 0;
+  min-height: $mainHeight;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 30px;
+
+  h2 {
+    color: $primaryColorLight;
+  }
+}
+
+.loading {
+  min-height: $mainHeight;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .loader {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 4px solid $primaryColor;
+    border-bottom-color: transparent;
+    animation: rotate 1s linear infinite;
+  }
+}
+
+.error-container {
+  padding: 30px 0;
+  min-height: $mainHeight;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 30px;
+
+  h2 {
+    color: $primaryColorLight;
+  }
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#user__container {
+  padding: 30px 0;
+  min-height: $mainHeight;
+
+  .icon {
+    display: inline-block;
+    text-align: center;
+    font-size: 1.7rem;
+    color: $primaryColor;
+    width: 22px;
+    margin-right: 8px;
+  }
+
+  #user__details {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 25px;
+
+    .user__pic {
+      flex: 0 0 38%;
+      max-width: 135px;
+      min-width: 105px;
+      margin-right: 10px;
+
+      .profile-pic {
+        max-width: 100%;
+        height: auto;
+        border-radius: 25%;
+        border: 4px solid $secondaryColorDark;
+      }
+    }
+
+    .user__info {
+      flex: 0 0 58%;
+      display: flex;
+      flex-direction: column;
+      margin-left: 10px;
+
+      h1 {
+        margin-bottom: 0;
+        color: $primaryColor;
+      }
+
+      .name {
+        font-size: 1.6rem;
+      }
+
+      .location {
+        margin-top: auto;
+        margin-bottom: 5px;
+        font-size: 1.6rem;
+
+        .icon {
+          text-align: left;
+          margin-right: 0;
+          color: $accentColorDark;
+        }
+      }
+    }
+  }
+
+  #user__bio {
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid black;
+    font-size: 1.6rem;
+
+    .bio {
+      font-style: italic;
+    }
+
+    .blog__link {
+      a {
+        text-decoration: none;
+        color: $secondaryColorDark;
+
+        &:hover {
+          color: $secondaryColor;
+        }
+      }
+    }
+
+    .following {
+      display: inline-block;
+      margin-right: 15px;
+    }
+
+    .following,
+    .followers {
+      color: $secondaryColorDark;
+
+      .count {
+        color: $primaryColorLight;
+      }
+    }
+
+    .github--redirect {
+      margin-top: 20px;
+
+      a {
+        text-decoration: none;
+        color: $secondaryColor;
+
+        &:hover {
+          color: $primaryColorLight;
+        }
+      }
+    }
+  }
+
+  #user__repositories {
+    h2 {
+      text-align: center;
+      color: $primaryColorLight;
+    }
+
+    .no--repo p {
+      line-height: 30px;
+    }
+
+    #repos__container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 30px;
+
+      .repo {
+        padding: 13px;
+        border-radius: 20px;
+        border: 2px solid #f2f2f2;
+        text-align: center;
+        box-shadow: 2px -1px 5px $accentColor, 3px -2px 6px $accentColorDark;
+  
+        h3 {
+          color: $primaryColor;
+        }
+  
+        p {
+          line-height: 25px;
+        }
+  
+        .repo__stats {
+          display: flex;
+          justify-content: space-around;
+          margin-bottom: 15px;
+  
+          .repo__stars,
+          .repo__forks {
+            font-size: 1.6rem;
+            color: $secondaryColorDark;
+          }
+        }
+  
+        .repo__details {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          font-size: 1.3rem;
+  
+          .repo__language {
+            color: $secondaryColor;
+            margin: 0 10px;
+          }
+  
+          .repo__date {
+            margin: 0 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  #user__container {
+    display: grid;
+    grid-template-areas: "bio repos repos";
+    grid-template-columns: 250px 1fr 1fr;
+    gap: 35px 60px;
+
+    .grid {
+      grid-area: bio;
+    }
+
+    #user__bio {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    #user__repositories {
+      grid-area: repos;
+    }
+  }
+}

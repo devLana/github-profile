@@ -1,9 +1,13 @@
 #home--container {
-  min-height: calc(100vh - 65px);
+  min-height: $mainHeight;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  h1 {
+    color: $primaryColor;
+  }
 
   .search-box--container {
     width: 100%;
@@ -11,9 +15,12 @@
 
     p {
       color: #f00;
-      font-weight: bold;
-      margin-top: 5px;
+      font: {
+        weight: bold;
+        size: 1.2rem;
+      }
+      margin-top: 3px;
+      padding-left: 10px;
     }
   }
-
 }

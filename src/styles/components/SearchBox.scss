@@ -1,7 +1,7 @@
 #search-box {
-  border: 2px solid #000;
-  background-color: #fff;
-  height: 35px;
+  border: 2px solid $secondaryColorDark;
+  background-color: $white;
+  height: 37px;
   border-radius: 10px;
   position: relative;
 
@@ -13,12 +13,13 @@
     padding-left: 10px;
     background-color: transparent;
     font: {
-      family: 'Source Sans Pro', sans-serif;
-      size: 15px
+      family: $Montserrat;
+      size: 1.6rem;
     }
     position: absolute;
     left: 0;
     top: 0;
+    outline: none;
   }
 
   #search-btn {
@@ -30,11 +31,12 @@
     position: absolute;
     top: 0;
     right: 0;
+    outline: none;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
 
     &:hover .graphics {
-      stroke: #5dc6e0;
+      stroke: $secondaryColor;
     }
   }
 }

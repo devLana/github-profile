@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
-import Layout from "./Layout";
+import Layout from "../templates/Layout";
 import SearchBox from "./SearchBox";
-import "../styles/Home.scss";
-
 
 const Home = () => {
   document.title = "Github Profile";
   const [errMsg, setErrMsg] = useState("");
+  const [err, setErr] = useState(false);
 
-  const setError = () => setErrMsg("Network error! Please try again later.");
+  const setError = () => {
+    setErr(true);
+    setErrMsg("Network error! Please try again later.");
+  };
 
-  const unSetError = () => setErrMsg("");
+  const unSetError = () => {
+    setErr(false);
+    setErrMsg("");
+  };
 
   return (
     <Layout>
@@ -18,7 +23,7 @@ const Home = () => {
         <h1>Search for a Github user</h1>
         <div className="search-box--container">
           <SearchBox setError={setError} unSetError={unSetError} />
-          <p id="search__error">{errMsg}</p>
+          {err && <p id="search__error">{errMsg}</p>}
         </div>
       </div>
     </Layout>

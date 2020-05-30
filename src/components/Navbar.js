@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBox from "./SearchBox";
-import "../styles/Navbar.scss";
 
 const Navbar = () => {
   const [errMsg, setErrMsg] = useState("");
