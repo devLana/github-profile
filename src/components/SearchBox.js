@@ -1,19 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 
 const SearchBox = props => {
-  const [user, setUser] = useState("");
+  const [initialUser, setInitialUser] = useState("");
+
+  const history = useHistory();
+  const location = useLocation();
+  const { user } = useParams();
 
   const inputElement = useRef(null);
   const searchBox = useRef(null);
 
-  const path = window.location.pathname;
-  const { setError, unSetError, initialUser } = props;
+  const { setError, unSetError, setLoading } = props;
 
   useEffect(() => {
-    if (initialUser) setUser(initialUser);
-  }, [initialUser]);
+    if (user) setInitialUser(user);
+  }, [user]);
 
-  const change = e => setUser(e.target.value);
+  const change = e => setInitialUser(e.target.value);
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -23,27 +27,31 @@ const SearchBox = props => {
   };
 
   const inputBlur = () => {
-    (path === "/")
+    location.pathname === "/"
       ? searchBox.current.style.border = "2px solid #745811"
       : searchBox.current.style.border = "2px solid #1b503f";
   };
 
   const inputFocus = () => {
-    if (path === "/") unSetError();
+    if (location.pathname === "/") unSetError();
     searchBox.current.style.border = "2px solid #e64fb6";
   };
 
   const submit = () => {
     const search = inputElement.current.value.trim();
 
-    if (search === "") {
-      return;
-    } else if (!navigator.onLine) {
+    if (initialUser === user) return;
+
+    if (search === "") return;
+
+    if (!navigator.onLine) {
       setError();
       return;
     }
 
-    window.location = `/${search}`;
+    if (setLoading) setLoading();
+
+    history.push(`/${search}`);
   };
 
   return (
@@ -51,7 +59,7 @@ const SearchBox = props => {
       <input
         type="search"
         name="search"
-        value={user}
+        value={initialUser}
         id="search"
         onChange={change}
         onFocus={inputFocus}

@@ -1,10 +1,14 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 
-const Layout = ({children}) => {
+const Layout = ({searchBox, children}) => {
+  const navBar = searchBox
+    ? <Navbar searchBox={searchBox} />
+    : <Navbar />;
+
   return (
     <>
-      <Navbar />
+      {navBar}
       <main id="main">
         <div className="container">
           {children}
