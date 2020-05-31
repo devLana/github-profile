@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Layout from "../templates/Layout";
+import Layout from "./Layout";
 import SearchBox from "./SearchBox";
 
 const Home = () => {
