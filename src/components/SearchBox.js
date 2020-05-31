@@ -40,14 +40,14 @@ const SearchBox = props => {
   const submit = () => {
     const search = inputElement.current.value.trim();
 
-    if (initialUser === user) return;
-
-    if (search === "") return;
-
     if (!navigator.onLine) {
       setError();
       return;
     }
+
+    if (initialUser === user) return;
+
+    if (search === "") return;
 
     if (setLoading) setLoading();
 

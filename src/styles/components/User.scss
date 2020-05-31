@@ -1,42 +1,24 @@
+%paddingStyle {
+  padding: 30px 0;
+}
+
 .not-found {
+  @extend %paddingStyle;
   padding: 30px 0;
   min-height: $mainHeight;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  line-height: 30px;
-
-  h2 {
-    color: $primaryColorLight;
-  }
+  @include flexColumn;
 }
 
 .loading {
   min-height: $mainHeight;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flexCenter;
 
   .loader {
+    @include borders(loader);
     width: 30px;
     height: 30px;
-    border-radius: 50%;
-    border: 2px solid $primaryColor;
     border-bottom-color: transparent;
     animation: rotate 1s linear infinite;
-  }
-}
-
-.error-container {
-  padding: 30px 0;
-  min-height: $mainHeight;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  line-height: 30px;
-
-  h2 {
-    color: $primaryColorLight;
   }
 }
 
@@ -46,8 +28,14 @@
   }
 }
 
+.error-container {
+  @extend %paddingStyle;
+  min-height: $mainHeight;
+  @include flexColumn;
+}
+
 #user__container {
-  padding: 30px 0;
+  @extend %paddingStyle;
   min-height: $mainHeight;
 
   .icon {
@@ -89,14 +77,9 @@
         color: $primaryColor;
       }
 
-      .name {
-        font-size: 1.6rem;
-      }
-
       .location {
         margin-top: auto;
         margin-bottom: 5px;
-        font-size: 1.6rem;
 
         .icon {
           text-align: left;
@@ -110,9 +93,7 @@
   #user__bio {
     padding-bottom: 30px;
     margin-bottom: 30px;
-    line-height: 30px;
-    border-bottom: 1px solid black;
-    font-size: 1.6rem;
+    border-bottom: $border;
 
     .bio {
       font-style: italic;
@@ -155,7 +136,6 @@
   #user__repositories {
     h2 {
       text-align: center;
-      color: $primaryColorLight;
     }
 
     .loading {
@@ -163,7 +143,6 @@
     }
 
     .no--repo p {
-      line-height: 30px;
       text-align: center;
     }
 
@@ -173,9 +152,8 @@
       gap: 30px;
 
       .repo {
+        @include borders(repo);
         padding: 13px;
-        border-radius: 20px;
-        border: 2px solid #f2f2f2;
         text-align: center;
         box-shadow: 2px -1px 5px $accentColor, 3px -2px 6px $accentColorDark;
   
@@ -194,7 +172,6 @@
   
           .repo__stars,
           .repo__forks {
-            font-size: 1.6rem;
             color: $secondaryColorDark;
           }
         }
@@ -203,7 +180,7 @@
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
-          font-size: 1.3rem;
+          font-size: $SecondaryFontSize;
   
           .repo__language {
             color: $secondaryColor;
@@ -228,7 +205,7 @@
 
     .grid {
       grid-area: bio;
-      border-right: 1px solid $accentColor;
+      border-right: $border;
       padding-right: 35px;
     }
 

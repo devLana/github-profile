@@ -41,6 +41,7 @@ const User = () => {
   const setLoading = () => {
     setIsLoading(true);
     setRepoIsLoading(true);
+    setErr(false);
   }
 
   const searchBox = err => <SearchBox setLoading={setLoading} setError={err} />;
@@ -79,7 +80,7 @@ const User = () => {
 
   if (err) {
     return (
-      <Layout>
+      <Layout searchBox={searchBox}>
         <div className="error-container">
           <h2>Oops! Something went wrong</h2>
           <p>An error has occurred and we can't complete that action right now.</p>

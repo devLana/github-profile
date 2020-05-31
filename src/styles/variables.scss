@@ -5,10 +5,17 @@ $secondaryColorDark: #745811;
 $accentColor: #d4f7ec;
 $accentColorDark: #1b503f;
 $white: #fff;
-$black: #000;
+
+
 $Barlow: 'Barlow', sans-serif;
 $Montserrat: 'Montserrat', sans-serif;
+$mainFontSize: 1.6rem;
+$SecondaryFontSize: 1.3rem;
 $h1: 2.2rem;
 $h2: 2rem;
 $h3: 1.8rem;
+
 $mainHeight: calc(100vh - 75px);
+$boxWidth: 85%;
+
+$border: 1px solid $accentColor;

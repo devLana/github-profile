@@ -1,38 +1,27 @@
 #search-box {
-  border: 2px solid $secondaryColorDark;
+  @include borders(search);
   background-color: $white;
   height: 37px;
-  border-radius: 10px;
   position: relative;
 
   #search {
-    height: 100%;
     width: calc(100% - 40px);
-    border: none;
     border-radius: 7px 0 0 7px;
     padding-left: 10px;
-    background-color: transparent;
     font: {
       family: $Montserrat;
-      size: 1.6rem;
+      size: $mainFontSize;
     }
-    position: absolute;
+    @include searchBox;
     left: 0;
-    top: 0;
-    outline: none;
   }
 
   #search-btn {
-    background-color: transparent;
-    height: 100%;
-    width: 40px;
-    border: none;
-    border-radius: 0 7px 7px 0;
-    position: absolute;
-    top: 0;
-    right: 0;
-    outline: none;
     cursor: pointer;
+    width: 40px;
+    border-radius: 0 7px 7px 0;
+    @include searchBox;
+    right: 0;
     transition: background-color 0.2s ease-in-out;
 
     &:hover .graphics {
