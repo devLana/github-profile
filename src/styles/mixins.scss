@@ -1,0 +1,50 @@
+@mixin headers($val) {
+  font-family: $Barlow;
+  @if $val == one {
+    color: $primaryColor;
+    margin-bottom: 25px;
+  } @else if $val == two {
+    color: $primaryColorLight;
+    margin-bottom: 25px;
+  } @else {
+    color: $primaryColorLight;
+    margin-bottom: 15px;
+  }
+}
+
+@mixin borders($val) {
+  @if $val == nav {
+    border: 2px solid $accentColorDark;
+    border-radius: 15px;
+  } @else if $val == search {
+    border: 2px solid $secondaryColorDark;
+    border-radius: 10px;
+  }  @else if $val == loader {
+    border: 2px solid $primaryColor;
+    border-radius: 50%;
+  } @else {
+    border: 2px solid #f2f2f2;
+    border-radius: 20px;
+  }
+}
+
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flexColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin searchBox {
+  outline: none;
+  background-color: transparent;
+  height: 100%;
+  border: none;
+  position: absolute;
+  top: 0;
+}

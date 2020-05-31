@@ -9,6 +9,11 @@
 
   a {
     text-decoration: none;
+
+    &:hover .logo__one,
+    &:hover .logo__two {
+      color: $accentColor;
+    }
   }
 
   .logo {
@@ -17,10 +22,7 @@
     justify-content: center;
     height: 75px;
     width: 55px;
-    font: {
-      weight: bold;
-      size: 1.5rem;
-    }
+    font-weight: bold;
     text-align: left;
 
     .logo__one {
@@ -50,17 +52,16 @@
 
   .nav__error {
     padding: 5px;
-    width: 85%;
+    width: $boxWidth;
     max-width: 275px;
     background-color: $accentColor;
     color: $secondaryColorDark;
     font: {
       weight: bold;
-      size: 1.2rem;
+      size: $SecondaryFontSize;
     }
     text-align: center;
-    border: 2px solid $accentColorDark;
-    border-radius: 15px;
+    @include borders(nav);
     position: absolute;
     left: 50%;
     bottom: -30px;

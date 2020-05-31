@@ -1,13 +1,7 @@
 #home--container {
   min-height: $mainHeight;
-  display: flex;
+  @include flexCenter;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  h1 {
-    color: $primaryColor;
-  }
 
   .search-box--container {
     width: 100%;
