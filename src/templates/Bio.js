@@ -5,14 +5,6 @@ const Bio = props => {
   return (
     <>
       {props.bio && <p className="bio">{props.bio}</p>}
-      {
-        props.link && (
-          <div className="blog__link">
-            <span className="icon"><i className="fas fa-link"></i></span>
-            <a href={props.link}>{props.link}</a>
-          </div>
-        )
-      }
       <div className="repos">
         <span className="icon"><i className="fas fa-book"></i></span>
         {`${props.repos} repositories`}

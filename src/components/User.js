@@ -130,7 +130,6 @@ const User = () => {
           <section id="user__bio">
             <Bio
               bio={userData.bio}
-              link={userData.blog}
               repos={userData.public_repos}
               following={userData.following}
               followers={userData.followers}
