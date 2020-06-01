@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 
-const SearchBox = props => {
+const SearchBox = ({setLoading}) => {
   const [initialUser, setInitialUser] = useState("");
 
   const history = useHistory();
@@ -10,8 +10,6 @@ const SearchBox = props => {
 
   const inputElement = useRef(null);
   const searchBox = useRef(null);
-
-  const { setError, unSetError, setLoading } = props;
 
   useEffect(() => {
     if (user) setInitialUser(user);
@@ -28,30 +26,22 @@ const SearchBox = props => {
 
   const inputBlur = () => {
     location.pathname === "/"
-      ? searchBox.current.style.border = "2px solid #745811"
-      : searchBox.current.style.border = "2px solid #1b503f";
+      ? searchBox.current.style.borderColor = "#745811"
+      : searchBox.current.style.borderColor = "#1b503f";
   };
 
   const inputFocus = () => {
-    if (location.pathname === "/") unSetError();
-    searchBox.current.style.border = "2px solid #e64fb6";
+    searchBox.current.style.borderColor = "#e64fb6";
   };
 
   const submit = () => {
     const search = inputElement.current.value.trim();
 
-    if (!navigator.onLine) {
-      setError();
-      return;
-    }
-
-    if (initialUser === user) return;
-
     if (search === "") return;
-
-    if (setLoading) setLoading();
+    if (search === user) return;
 
     history.push(`/${search}`);
+    if (setLoading) setLoading();
   };
 
   return (

@@ -1,22 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import SearchBox from "./SearchBox";
 
 const Navbar = ({searchBox}) => {
-  const [errMsg, setErrMsg] = useState("");
-  const [err, setErr] = useState(false);
-
   const location = useLocation();
-
-  const setError = () => {
-    setErr(true);
-    setErrMsg("Network error! Please try again later.");
-    setTimeout(() => setErr(false), 3000);
-  };
-
-  const searchBar = searchBox
-    ? searchBox(setError)
-    : <SearchBox setError={setError} />
+  const searchBar = searchBox ? searchBox() : <SearchBox />;
 
   return (
   <nav id="navbar">
@@ -29,7 +17,6 @@ const Navbar = ({searchBox}) => {
           </div>
         </Link>
         { location.pathname !== "/" && searchBar}
-        { err && <div className="nav__error">{errMsg}</div> }
       </div>
     </div>
   </nav>

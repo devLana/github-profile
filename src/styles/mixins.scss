@@ -13,10 +13,7 @@
 }
 
 @mixin borders($val) {
-  @if $val == nav {
-    border: 2px solid $accentColorDark;
-    border-radius: 15px;
-  } @else if $val == search {
+  @if $val == search {
     border: 2px solid $secondaryColorDark;
     border-radius: 10px;
   }  @else if $val == loader {

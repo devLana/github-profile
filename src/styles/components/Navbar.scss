@@ -49,32 +49,4 @@
       }
     }
   }
-
-  .nav__error {
-    padding: 5px;
-    width: $boxWidth;
-    max-width: 275px;
-    background-color: $accentColor;
-    color: $secondaryColorDark;
-    font: {
-      weight: bold;
-      size: $SecondaryFontSize;
-    }
-    text-align: center;
-    @include borders(nav);
-    position: absolute;
-    left: 50%;
-    bottom: -30px;
-    transform: translateX(-50%);
-    animation: slide 2.85s ease-in;
-  }
-}
-
-@keyframes slide {
-  5% { bottom: 17px; }
-  95% { opacity: 1 }
-  100% {
-    bottom: 17px;
-    opacity: 0;
-  }
 }
