@@ -4,7 +4,7 @@ import SearchBox from "./SearchBox";
 
 const Navbar = ({searchBox}) => {
   const location = useLocation();
-  const searchBar = searchBox ? searchBox() : <SearchBox />;
+  const searchBar = searchBox ? searchBox : <SearchBox />;
 
   return (
   <nav id="navbar">

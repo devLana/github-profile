@@ -44,7 +44,7 @@ const User = () => {
     setErr(false);
   }
 
-  const searchBox = () => <SearchBox setLoading={setLoading} />;
+  const searchBox = <SearchBox setLoading={setLoading} />;
 
   const reposArr = reposData.sort((a, b) => {
     return b.stargazers_count - a.stargazers_count;
