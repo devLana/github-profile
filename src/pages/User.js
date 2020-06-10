@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Helmet } from "react-helmet";
-import Layout from "./Layout";
-import SearchBox from "./SearchBox";
-import Repos from "../templates/Repos";
-import Loader from "../templates/Loader";
-import Avatar from "../templates/Avatar";
-import Bio from "../templates/Bio";
+import Layout from "../layouts/Layout";
+import SearchBox from "../layouts/SearchBox";
+import Repos from "../components/Repos";
+import Loader from "../components/Loader";
+import Avatar from "../components/Avatar";
+import Bio from "../components/Bio";
 
 const User = () => {
   const [isLoading, setIsLoading] = useState(true);

@@ -1,5 +1,5 @@
 import React from "react";
-import extractDate from "./utils";
+import extractDate from "../utils/dateFormat";
 
 const Repos = props => {
   return (
