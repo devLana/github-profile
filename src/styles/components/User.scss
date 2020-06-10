@@ -6,6 +6,7 @@
   @extend %paddingStyle;
   padding: 30px 0;
   min-height: $mainHeight;
+  word-break: break-word;
   @include flexColumn;
 }
 

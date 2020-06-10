@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import { Helmet } from "react-helmet";
+import searchService from "../services/fetch";
 import Layout from "../layouts/Layout";
 import SearchBox from "../layouts/SearchBox";
 import Repos from "../components/Repos";
@@ -21,19 +21,19 @@ const User = () => {
   useEffect(() => {
     document.title = `${user} | Github Profile`;
 
-    axios.get(`https://api.github.com/users/${user}`)
+    searchService.getUser(user)
       .then(userRes => {
         setIsLoading(false);
-        setUserData(userRes.data);
+        setUserData(userRes);
         setErr(false);
 
-        axios.get(`https://api.github.com/users/${user}/repos`)
+        searchService.getRepos(user)
           .then(repoData => {
             setRepoIsLoading(false);
-            setReposData(repoData.data);
+            setReposData(repoData);
           });
       }, err => {
-        (!navigator.onLine) ? setErr(true) : setUserData({});
+        (err && !navigator.onLine) ? setErr(true) : setUserData({});
         setIsLoading(false);
       });
   }, [user]);

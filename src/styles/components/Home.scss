@@ -2,6 +2,7 @@
   min-height: $mainHeight;
   @include flexCenter;
   flex-direction: column;
+  word-break: break-word;
 
   .search-box--container {
     width: 100%;
