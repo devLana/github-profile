@@ -138,11 +138,12 @@
 
     #repos__container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
       gap: 30px;
 
       .repo {
         @include borders(repo);
+        word-break: break-word;
         padding: 13px;
         text-align: center;
         box-shadow: 2px -1px 5px $accentColor, 3px -2px 6px $accentColorDark;
@@ -207,6 +208,10 @@
 
     #user__repositories {
       grid-area: repos;
+
+      #repos__container {
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      }
     }
   }
 }
