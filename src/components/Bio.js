@@ -6,11 +6,15 @@ const Bio = props => {
     <>
       {props.bio && <p className="bio">{props.bio}</p>}
       <div className="repos">
-        <span className="icon"><i className="fas fa-book"></i></span>
+        <span className="icon">
+          <i className="fas fa-book"></i>
+        </span>
         {`${props.repos} repositories`}
       </div>
       <div className="followers__following">
-        <span className="icon"><i className="fas fa-users"></i></span>
+        <span className="icon">
+          <i className="fas fa-users"></i>
+        </span>
         <span className="following">
           <span className="count">{props.following}</span> following
         </span>
@@ -19,7 +23,9 @@ const Bio = props => {
         </span>
       </div>
       <div className="join__date">
-        <span className="icon"><i className="fas fa-calendar-alt"></i></span>
+        <span className="icon">
+          <i className="fas fa-calendar-alt"></i>
+        </span>
         Joined Github, {extractDate(props.created)}.
       </div>
       <p className="github--redirect">

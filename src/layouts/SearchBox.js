@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 
-const SearchBox = ({setLoading}) => {
+const SearchBox = ({ setLoading }) => {
   const [initialUser, setInitialUser] = useState("");
 
   const history = useHistory();
@@ -17,7 +17,7 @@ const SearchBox = ({setLoading}) => {
 
   const change = e => setInitialUser(e.target.value);
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = e => {
     if (e.key === "Enter") {
       inputElement.current.blur();
       submit();
@@ -26,8 +26,8 @@ const SearchBox = ({setLoading}) => {
 
   const inputBlur = () => {
     location.pathname === "/"
-      ? searchBox.current.style.borderColor = "#745811"
-      : searchBox.current.style.borderColor = "#1b503f";
+      ? (searchBox.current.style.borderColor = "#745811")
+      : (searchBox.current.style.borderColor = "#1b503f");
   };
 
   const inputFocus = () => {

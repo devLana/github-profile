@@ -1,16 +1,14 @@
 import axios from "axios";
 
-const baseURL = "https://api.github.com/users/";
-
 const getUser = async user => {
-  const userAPI = `${baseURL}${user}`;
+  const userAPI = "https://api.github.com/users/" + user;
   const response = await axios.get(userAPI);
 
   return response.data;
 };
 
 const getRepos = async user => {
-  const repoAPI = `${baseURL}${user}/repos`;
+  const repoAPI = "https://api.github.com/users/" + user + "/repos";
   const response = await axios.get(repoAPI);
 
   return response.data;

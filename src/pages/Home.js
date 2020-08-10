@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import Layout from "../layouts/Layout";
 import SearchBox from "../layouts/SearchBox";
 

@@ -8,11 +8,15 @@ const Repos = props => {
       {props.description && <p>{props.description}</p>}
       <div className="repo__stats">
         <span className="repo__stars">
-          <span className="icon"><i className="fas fa-star"></i></span>
+          <span className="icon">
+            <i className="fas fa-star"></i>
+          </span>
           {props.stars}
         </span>
         <span className="repo__forks">
-          <span className="icon"><i className="fas fa-code-branch"></i></span>
+          <span className="icon">
+            <i className="fas fa-code-branch"></i>
+          </span>
           {props.forks}
         </span>
       </div>

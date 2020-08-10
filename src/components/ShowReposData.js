@@ -1,8 +1,6 @@
 import React from "react";
 
-const ShowReposData = props => {
-  const { reposData, user, reposArr } = props;
-
+const ShowReposData = ({ reposData, user, reposArr }) => {
   if (reposData.length === 0) {
     return (
       <div className="no--repo">

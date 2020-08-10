@@ -147,37 +147,37 @@
         padding: 13px;
         text-align: center;
         box-shadow: 2px -1px 5px $accentColor, 3px -2px 6px $accentColorDark;
-  
+
         h3 {
           color: $primaryColor;
         }
-  
+
         p {
           line-height: 25px;
         }
-  
+
         .repo__stats {
           display: flex;
           justify-content: space-around;
           margin-bottom: 15px;
-  
+
           .repo__stars,
           .repo__forks {
             color: $secondaryColorDark;
           }
         }
-  
+
         .repo__details {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
           font-size: $SecondaryFontSize;
-  
+
           .repo__language {
             color: $secondaryColor;
             margin: 0 10px;
           }
-  
+
           .repo__date {
             margin: 0 10px;
           }

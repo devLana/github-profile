@@ -16,7 +16,7 @@
   @if $val == search {
     border: 2px solid $secondaryColorDark;
     border-radius: 10px;
-  }  @else if $val == loader {
+  } @else if $val == loader {
     border: 2px solid $primaryColor;
     border-radius: 50%;
   } @else {

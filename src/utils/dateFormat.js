@@ -11,7 +11,7 @@ const extractDate = str => {
     "September",
     "October",
     "November",
-    "December"
+    "December",
   ];
 
   const d = new Date(str);
