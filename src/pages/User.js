@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import searchService from "../services/fetch";
 import Layout from "../layouts/Layout";
 import SearchBox from "../layouts/SearchBox";
 import Repos from "../components/Repos";
+import ShowReposData from "../components/ShowReposData";
 import Loader from "../components/Loader";
 import Avatar from "../components/Avatar";
 import Bio from "../components/Bio";
+import ShowError from "../components/ShowError";
+import searchService from "../services/fetch";
+import checkObject from "../utils/checkObject";
 
 const User = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -38,11 +41,13 @@ const User = () => {
       });
   }, [user]);
 
+  const isEmpty = checkObject(userData);
+
   const setLoading = () => {
     setIsLoading(true);
     setRepoIsLoading(true);
     setErr(false);
-  }
+  };
 
   const searchBox = <SearchBox setLoading={setLoading} />;
 
@@ -62,32 +67,10 @@ const User = () => {
     );
   }).slice(0, 6);
 
-  const ShowReposData = () => {
-    if (reposData.length === 0) {
-      return (
-        <div className="no--repo">
-          <p><strong>{user}</strong> has not created any Github repositories yet.</p>
-        </div>
-      );
-    }
-
-    return (
-      <div id="repos__container">
-        {reposArr}
-      </div>
-    );
-  };
-
   if (err) {
     return (
       <Layout searchBox={searchBox}>
-        <div className="error-container">
-          <h2>Oops! Something went wrong</h2>
-          <p>An error has occurred and we can't complete that action right now.</p>
-          <p>
-            Please try again later, or <strong>check your network connection and refresh the browser</strong>.
-          </p>
-        </div>
+        <ShowError />
       </Layout>
     );
   }
@@ -100,14 +83,10 @@ const User = () => {
     );
   }
 
-  if (Object.keys(userData).length === 0) {
+  if (isEmpty) {
     return (
       <Layout searchBox={searchBox}>
-        <div className="not-found">
-          <h2>{`"${user}"`} not found</h2>
-          <p>It seems the user you have searched for doesn't exist.</p>
-          <p>Please check the spelling and try again.</p>
-        </div>
+        <ShowError empty={true} user={user} />
       </Layout>
     );
   }
@@ -144,7 +123,11 @@ const User = () => {
             {
               repoIsLoading
                 ? <Loader />
-                : ShowReposData()
+                : <ShowReposData
+                    reposData={reposData}
+                    user={user}
+                    reposArr={reposArr}
+                  />
             }
         </section>
       </div>
