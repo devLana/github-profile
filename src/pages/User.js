@@ -23,19 +23,23 @@ const User = () => {
 
   useEffect(() => {
     const { getUser, getRepos } = searchService;
+    let isMounted = true;
 
     document.title = `${user} | Github Profile`;
 
-    getUser(user)
-      .then(userRes => {
-        setIsLoading(false);
-        setUserData(userRes);
-        setErr(false);
+    getUser(user).then(
+      userRes => {
+        if (isMounted) {
+          setIsLoading(false);
+          setUserData(userRes);
+          setErr(false);
+        }
 
-        getRepos(user)
-          .then(repoData => {
+        getRepos(user).then(repoData => {
+          if (isMounted) {
             setRepoIsLoading(false);
             setReposData(repoData);
+          }
         });
       },
       err => {
@@ -43,6 +47,10 @@ const User = () => {
         setIsLoading(false);
       }
     );
+
+    return () => {
+      isMounted = false;
+    };
   }, [user]);
 
   const isEmpty = checkObject(userData);
