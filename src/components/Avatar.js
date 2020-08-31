@@ -1,8 +1,9 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 const Avatar = props => {
   return (
-    <>
+    <section id="user__details">
       <div className="user__pic">
         {props.img && (
           <img src={props.img} alt={props.user} className="profile-pic" />
@@ -20,8 +21,12 @@ const Avatar = props => {
           </div>
         )}
       </div>
-    </>
+    </section>
   );
 };
 
 export default Avatar;
+
+Avatar.propTypes = {
+
+}

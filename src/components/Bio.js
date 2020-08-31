@@ -3,7 +3,7 @@ import extractDate from "../utils/dateFormat";
 
 const Bio = props => {
   return (
-    <>
+    <section id="user__bio">
       {props.bio && <p className="bio">{props.bio}</p>}
       <div className="repos">
         <span className="icon">
@@ -31,7 +31,7 @@ const Bio = props => {
       <p className="github--redirect">
         Check out <a href={props.url}>{props.user} on Github</a> for more details.
       </p>
-    </>
+    </section>
   );
 };
 

@@ -1,30 +1,53 @@
 import React from "react";
-import extractDate from "../utils/dateFormat";
+import ShowRepos from "./ShowRepos";
+import NoRepo from "./NoRepo";
+import Loader from "./Loader";
 
 const Repos = props => {
+  const { user, reposData, reposLoading } = props;
+
+  if (reposLoading) {
+    return (
+      <section id="user__repositories">
+        <h2>Repositories</h2>
+        <Loader />
+      </section>
+    );
+  }
+
+  if (reposData.length === 0) {
+    return (
+      <section id="user__repositories">
+        <h2>Repositories</h2>
+        <NoRepo user={user} />
+      </section>
+    );
+  }
+
   return (
-    <div className="repo">
-      <h3>{props.name}</h3>
-      {props.description && <p>{props.description}</p>}
-      <div className="repo__stats">
-        <span className="repo__stars">
-          <span className="icon">
-            <i className="fas fa-star"></i>
-          </span>
-          {props.stars}
-        </span>
-        <span className="repo__forks">
-          <span className="icon">
-            <i className="fas fa-code-branch"></i>
-          </span>
-          {props.forks}
-        </span>
+    <section id="user__repositories">
+      <h2>Repositories</h2>
+      <div id="repos__container">
+        {reposData
+          .sort((a, b) => {
+            return b.stargazers_count - a.stargazers_count;
+          })
+          .map(elem => {
+            return (
+              <ShowRepos
+                key={elem.id}
+                name={elem.name}
+                description={elem.description}
+                stars={elem.stargazers_count}
+                forks={elem.forks_count}
+                language={elem.language}
+                created={elem.created_at}
+              />
+            );
+          })
+          .slice(0, 6)}
       </div>
-      <div className="repo__details">
-        {props.language && <span className="repo__language">{props.language}</span>}
-        <span className="repo__date">Created: {extractDate(props.created)}</span>
-      </div>
-    </div>
+    </section>
   );
 };
 
