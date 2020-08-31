@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import ShowRepos from "./ShowRepos";
 import NoRepo from "./NoRepo";
 import Loader from "./Loader";
@@ -52,3 +53,9 @@ const Repos = props => {
 };
 
 export default Repos;
+
+Repos.propTypes = {
+  reposData: PropTypes.array,
+  reposLoading: PropTypes.bool,
+  user: PropTypes.string,
+};

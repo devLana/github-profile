@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 
-const SearchBox = ({ setLoading }) => {
+const SearchBox = ({ reset }) => {
   const [initialUser, setInitialUser] = useState("");
 
   const history = useHistory();
@@ -41,7 +42,7 @@ const SearchBox = ({ setLoading }) => {
     if (search === user) return;
 
     history.push(`/${search}`);
-    if (setLoading) setLoading();
+    if (reset) reset();
   };
 
   return (
@@ -70,3 +71,7 @@ const SearchBox = ({ setLoading }) => {
 };
 
 export default SearchBox;
+
+SearchBox.propTypes = {
+  reset: PropTypes.func,
+};

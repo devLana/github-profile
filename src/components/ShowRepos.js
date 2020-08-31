@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import extractDate from "../utils/dateFormat";
 
 const ShowRepos = props => {
@@ -21,11 +22,24 @@ const ShowRepos = props => {
         </span>
       </div>
       <div className="repo__details">
-        {props.language && <span className="repo__language">{props.language}</span>}
-        <span className="repo__date">Created: {extractDate(props.created)}</span>
+        {props.language && (
+          <span className="repo__language">{props.language}</span>
+        )}
+        <span className="repo__date">
+          Created: {extractDate(props.created)}
+        </span>
       </div>
     </div>
   );
 };
 
 export default ShowRepos;
+
+ShowRepos.propTypes = {
+  created: PropTypes.string,
+  description: PropTypes.string,
+  forks: PropTypes.number,
+  language: PropTypes.string,
+  name: PropTypes.string,
+  stars: PropTypes.number,
+};

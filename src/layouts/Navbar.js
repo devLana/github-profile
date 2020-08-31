@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
 import SearchBox from "./SearchBox";
 
@@ -24,3 +25,7 @@ const Navbar = ({ searchBox }) => {
 };
 
 export default Navbar;
+
+Navbar.propTypes = {
+  searchBox: PropTypes.element,
+};

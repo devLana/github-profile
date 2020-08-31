@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Navbar from "./Navbar";
 
 const Layout = ({ searchBox, children }) => {
@@ -15,3 +16,11 @@ const Layout = ({ searchBox, children }) => {
 };
 
 export default Layout;
+
+Layout.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ]).isRequired,
+  searchBox: PropTypes.element,
+};

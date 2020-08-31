@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import extractDate from "../utils/dateFormat";
 
 const Bio = props => {
@@ -29,10 +30,21 @@ const Bio = props => {
         Joined Github, {extractDate(props.created)}.
       </div>
       <p className="github--redirect">
-        Check out <a href={props.url}>{props.user} on Github</a> for more details.
+        Check out <a href={props.url}>{props.user} on Github</a> for more
+        details.
       </p>
     </section>
   );
 };
 
 export default Bio;
+
+Bio.propTypes = {
+  bio: PropTypes.string,
+  created: PropTypes.string,
+  followers: PropTypes.number,
+  following: PropTypes.number,
+  repos: PropTypes.number,
+  url: PropTypes.string,
+  user: PropTypes.string,
+};

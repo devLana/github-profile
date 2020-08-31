@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const NoRepo = ({ user }) => {
   return (
@@ -11,3 +12,7 @@ const NoRepo = ({ user }) => {
 };
 
 export default NoRepo;
+
+NoRepo.propTypes = {
+  user: PropTypes.string,
+};

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const ShowError = ({ empty, user }) => {
   return (
@@ -12,10 +13,15 @@ const ShowError = ({ empty, user }) => {
       ) : (
         <div className="error-container">
           <h2>Oops! Something went wrong</h2>
-          <p>An error has occurred and we can't complete that action right now.</p>
+          <p>
+            An error has occurred and we can't complete that action right now.
+          </p>
           <p>
             Please try again later, or{" "}
-            <strong>check your network connection and refresh the browser</strong>.
+            <strong>
+              check your network connection and refresh the browser
+            </strong>
+            .
           </p>
         </div>
       )}
@@ -24,3 +30,8 @@ const ShowError = ({ empty, user }) => {
 };
 
 export default ShowError;
+
+ShowError.propTypes = {
+  empty: PropTypes.bool,
+  user: PropTypes.string,
+};

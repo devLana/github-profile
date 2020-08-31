@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const Avatar = props => {
   return (
@@ -28,5 +28,8 @@ const Avatar = props => {
 export default Avatar;
 
 Avatar.propTypes = {
-
-}
+  img: PropTypes.string,
+  location: PropTypes.string,
+  name: PropTypes.string,
+  user: PropTypes.string,
+};

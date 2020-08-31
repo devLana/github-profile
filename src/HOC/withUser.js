@@ -51,6 +51,8 @@ const withUser = Component => {
     const reset = () => {
       setLoading(true);
       setReposLoading(true);
+      setUserData({});
+      setReposData([]);
     };
 
     const searchBox = <SearchBox reset={reset} />;
@@ -88,6 +90,7 @@ const withUser = Component => {
       />
     );
   };
+
   return FetchUser;
 };
 
