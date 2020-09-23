@@ -1,12 +1,24 @@
 import React from "react";
+import { useHistory, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const ShowError = ({ empty, user }) => {
+const ShowError = ({ empty, query, reset }) => {
+  const { user } = useParams();
+  const history = useHistory();
+
+  const refresh = () => {
+    history.replace('/""');
+    setTimeout(() => {
+      reset();
+      history.replace(`/${user}`);
+    }, 1);
+  };
+
   return (
     <>
-      {empty && user ? (
+      {empty && query ? (
         <div className="not-found">
-          <h2>{`"${user}"`} not found</h2>
+          <h2>{`"${query}"`} not found</h2>
           <p>It seems the user you have searched for doesn't exist.</p>
           <p>Please check the spelling and try again.</p>
         </div>
@@ -23,6 +35,7 @@ const ShowError = ({ empty, user }) => {
             </strong>
             .
           </p>
+          <button onClick={refresh}>Refresh</button>
         </div>
       )}
     </>

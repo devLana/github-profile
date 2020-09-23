@@ -33,6 +33,25 @@
   @extend %paddingStyle;
   min-height: $mainHeight;
   @include flexColumn;
+
+  button {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-family: $Montserrat;
+    font-size: 1.6rem;
+    color: $accentColor;
+    background-color: $primaryColorLight;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $primaryColor;
+    }
+
+    &:active {
+      background-color: $primaryColorLight;
+    }
+  }
 }
 
 #user__container {

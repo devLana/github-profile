@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import searchService from "../services/fetch";
+import searchService from "../services";
 import checkObject from "../utils/checkObject";
 import Layout from "../layouts/Layout";
 import ShowError from "../components/ShowError";
@@ -60,7 +60,7 @@ const withUser = Component => {
     if (!navigator.onLine) {
       return (
         <Layout searchBox={searchBox}>
-          <ShowError />
+          <ShowError reset={reset} />
         </Layout>
       );
     }
@@ -76,7 +76,7 @@ const withUser = Component => {
     if (isEmpty) {
       return (
         <Layout searchBox={searchBox}>
-          <ShowError empty user={user} />
+          <ShowError empty query={user} />
         </Layout>
       );
     }

@@ -5,7 +5,7 @@ import Layout from "../layouts/Layout";
 import Repos from "../components/Repos";
 import Avatar from "../components/Avatar";
 import Bio from "../components/Bio";
-import withUser from "../HOC/withUser";
+import withUser from "../HOC";
 
 const User = props => {
   const { userData, reposData, reposLoading, searchBox } = props;
