@@ -60,7 +60,7 @@ const withUser = Component => {
     if (!navigator.onLine) {
       return (
         <Layout searchBox={searchBox}>
-          <ShowError reset={reset} />
+          <ShowError refresh={props.handleRefresh} />
         </Layout>
       );
     }

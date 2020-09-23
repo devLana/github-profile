@@ -1,19 +1,7 @@
 import React from "react";
-import { useHistory, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const ShowError = ({ empty, query, reset }) => {
-  const { user } = useParams();
-  const history = useHistory();
-
-  const refresh = () => {
-    history.replace('/""');
-    setTimeout(() => {
-      reset();
-      history.replace(`/${user}`);
-    }, 1);
-  };
-
+const ShowError = ({ empty, query, refresh }) => {
   return (
     <>
       {empty && query ? (
