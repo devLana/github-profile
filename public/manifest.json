@@ -1,0 +1,29 @@
+{
+  "name": "Github user profile search app",
+  "short_name": "Github profile",
+  "description": "Search for a github user profile",
+  "start_url": "/",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "type": "image/x-icon",
+      "sizes": "32x32"
+    },
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "display": "standalone",
+  "theme_color": "#68084a",
+  "background_color": "#fff",
+  "orientation": "portrait"
+}
