@@ -6,8 +6,12 @@ import ShowError from "../components/ShowError";
 import Loader from "../components/Loader";
 import SearchBox from "../layouts/SearchBox";
 
+const responseCache = new Map();
+let responseObj = {};
+
 const withUser = Component => {
   const FetchUser = props => {
+    const [isOffline, setIsOffline] = useState(false);
     const [loading, setLoading] = useState(true);
     const [reposLoading, setReposLoading] = useState(true);
     const [userData, setUserData] = useState({});
@@ -21,25 +25,61 @@ const withUser = Component => {
 
       document.title = `${user} | Github Profile`;
 
-      getUser(user).then(
-        userRes => {
-          if (isMounted) {
-            setLoading(false);
-            setUserData(userRes);
-          }
+      if (responseCache.has(user)) {
+        const cachedUser = responseCache.get(user);
+        console.log({cachedUser})
 
-          getRepos(user).then(repoData => {
-            if (isMounted) {
-              setReposLoading(false);
-              setReposData(repoData);
-            }
-          });
-        },
-        () => {
-          setUserData({});
+        if (isMounted) {
           setLoading(false);
+          setUserData(cachedUser[user][user]);
+
+          if ("repos" in cachedUser[user]) {
+            setReposLoading(false);
+            setReposData(cachedUser[user].repos);
+          }
         }
-      );
+      } else if (!navigator.onLine) {
+        if (isMounted) setIsOffline(true);
+      } else {
+        getUser(user).then(
+          userRes => {
+            if (isMounted) {
+              setLoading(false);
+              setUserData(userRes);
+
+              responseObj[user] = {
+                [user]: userRes,
+              };
+            }
+
+            getRepos(user).then(repoData => {
+              if (isMounted) {
+                setReposLoading(false);
+                setReposData(repoData);
+
+                responseObj[user] = {
+                  ...responseObj[user],
+                  repos: repoData,
+                };
+
+                responseCache.set(user, responseObj);
+                responseObj = {};
+              }
+            });
+          },
+          () => {
+            setLoading(false);
+            setUserData({});
+
+            responseObj[user] = {
+              [user]: {},
+            };
+
+            responseCache.set(user, responseObj);
+            responseObj = {};
+          }
+        );
+      }
 
       return () => {
         isMounted = false;
@@ -57,7 +97,7 @@ const withUser = Component => {
 
     const searchBox = <SearchBox reset={reset} />;
 
-    if (!navigator.onLine) {
+    if (isOffline) {
       return (
         <Layout searchBox={searchBox}>
           <ShowError refresh={props.handleRefresh} />
