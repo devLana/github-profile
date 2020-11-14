@@ -20,49 +20,49 @@ const withUser = Component => {
     const { user } = props.match.params;
 
     useEffect(() => {
+      const query = user.toLowerCase();
       const { getUser, getRepos } = searchService;
       let isMounted = true;
 
-      document.title = `${user} | Github Profile`;
+      document.title = `${query} | Github Profile`;
 
-      if (responseCache.has(user)) {
-        const cachedUser = responseCache.get(user);
-        console.log({cachedUser})
+      if (responseCache.has(query)) {
+        const cachedUser = responseCache.get(query);
 
         if (isMounted) {
           setLoading(false);
-          setUserData(cachedUser[user][user]);
+          setUserData(cachedUser[query][query]);
 
-          if ("repos" in cachedUser[user]) {
+          if ("repos" in cachedUser[query]) {
             setReposLoading(false);
-            setReposData(cachedUser[user].repos);
+            setReposData(cachedUser[query].repos);
           }
         }
       } else if (!navigator.onLine) {
         if (isMounted) setIsOffline(true);
       } else {
-        getUser(user).then(
+        getUser(query).then(
           userRes => {
             if (isMounted) {
               setLoading(false);
               setUserData(userRes);
 
-              responseObj[user] = {
-                [user]: userRes,
+              responseObj[query] = {
+                [query]: userRes,
               };
             }
 
-            getRepos(user).then(repoData => {
+            getRepos(query).then(repoData => {
               if (isMounted) {
                 setReposLoading(false);
                 setReposData(repoData);
 
-                responseObj[user] = {
-                  ...responseObj[user],
+                responseObj[query] = {
+                  ...responseObj[query],
                   repos: repoData,
                 };
 
-                responseCache.set(user, responseObj);
+                responseCache.set(query, responseObj);
                 responseObj = {};
               }
             });
@@ -71,11 +71,11 @@ const withUser = Component => {
             setLoading(false);
             setUserData({});
 
-            responseObj[user] = {
-              [user]: {},
+            responseObj[query] = {
+              [query]: {},
             };
 
-            responseCache.set(user, responseObj);
+            responseCache.set(query, responseObj);
             responseObj = {};
           }
         );
