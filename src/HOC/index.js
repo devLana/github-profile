@@ -70,17 +70,26 @@ const withUser = Component => {
             });
           },
           (err) => {
-            // if (err.response) {
-            //   console.log("1st:- one - ", err)
-            //   console.log("1st:- two - ", err.response)
-            //   console.log("1st:- three - ", err.response.data)
-            // } else if (err.request) {
-            //   console.log("2nd:- one - ", err)
-            //   console.log("2nd:- two - ", err.request)
-            //   console.log("2nd:- three - ", err.request.data)
-            // } else {
-            //   console.log("3rd:- one - ", err)
-            // }
+            if (err.response) {
+              console.log("1st:- one - ", err)
+              console.log("1st:- two - ", err.response)
+              if (err.response.status === 404) {
+                setLoading(false);
+                setUserData({});
+
+                responseObj[query] = {
+                  [query]: {},
+                };
+
+                responseCache.set(query, responseObj);
+                responseObj = {};
+              }
+            } else if (err.request) {
+              console.log("2nd:- one - ", err)
+              console.log("2nd:- two - ", err.request)
+            } else {
+              console.log("3rd:- one - ", err)
+            }
             setLoading(false);
             setUserData({});
 
