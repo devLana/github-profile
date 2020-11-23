@@ -1,50 +1,42 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useContext } from "react";
 import extractDate from "../utils/dateFormat";
+import { StateContext } from "../utils/context";
 
-const Bio = props => {
+const Bio = () => {
+  const { userData } = useContext(StateContext);
+
   return (
     <section id="user__bio">
-      {props.bio && <p className="bio">{props.bio}</p>}
+      {userData.bio && <p className="bio">{userData.bio}</p>}
       <div className="repos">
         <span className="icon">
           <i className="fas fa-book"></i>
         </span>
-        {`${props.repos} repositories`}
+        {`${userData.public_repos} repositories`}
       </div>
       <div className="followers__following">
         <span className="icon">
           <i className="fas fa-users"></i>
         </span>
         <span className="following">
-          <span className="count">{props.following}</span> following
+          <span className="count">{userData.following}</span> following
         </span>
         <span className="followers">
-          <span className="count">{props.followers}</span> followers
+          <span className="count">{userData.followers}</span> followers
         </span>
       </div>
       <div className="join__date">
         <span className="icon">
           <i className="fas fa-calendar-alt"></i>
         </span>
-        Joined Github, {extractDate(props.created)}.
+        Joined Github, {extractDate(userData.created_at)}.
       </div>
       <p className="github--redirect">
-        Check out <a href={props.url}>{props.user} on Github</a> for more
-        details.
+        Check out <a href={userData.html_url}>{userData.login} on Github</a> for
+        more details.
       </p>
     </section>
   );
 };
 
 export default Bio;
-
-Bio.propTypes = {
-  bio: PropTypes.string,
-  created: PropTypes.string,
-  followers: PropTypes.number,
-  following: PropTypes.number,
-  repos: PropTypes.number,
-  url: PropTypes.string,
-  user: PropTypes.string,
-};

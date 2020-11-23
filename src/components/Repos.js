@@ -1,11 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useContext } from "react";
 import ShowRepos from "./ShowRepos";
 import NoRepo from "./NoRepo";
 import Loader from "./Loader";
+import { StateContext } from "../utils/context";
 
-const Repos = props => {
-  const { user, reposData, reposLoading } = props;
+const Repos = () => {
+  const { userData, reposData, reposLoading } = useContext(StateContext);
 
   if (reposLoading) {
     return (
@@ -20,7 +20,7 @@ const Repos = props => {
     return (
       <section id="user__repositories">
         <h2>Repositories</h2>
-        <NoRepo user={user} />
+        <NoRepo user={userData.login} />
       </section>
     );
   }
@@ -33,16 +33,16 @@ const Repos = props => {
           .sort((a, b) => {
             return b.stargazers_count - a.stargazers_count;
           })
-          .map(elem => {
+          .map(item => {
             return (
               <ShowRepos
-                key={elem.id}
-                name={elem.name}
-                description={elem.description}
-                stars={elem.stargazers_count}
-                forks={elem.forks_count}
-                language={elem.language}
-                created={elem.created_at}
+                key={item.id}
+                name={item.name}
+                description={item.description}
+                stars={item.stargazers_count}
+                forks={item.forks_count}
+                language={item.language}
+                created={item.created_at}
               />
             );
           })
@@ -53,9 +53,3 @@ const Repos = props => {
 };
 
 export default Repos;
-
-Repos.propTypes = {
-  reposData: PropTypes.array,
-  reposLoading: PropTypes.bool,
-  user: PropTypes.string,
-};

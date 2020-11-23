@@ -1,23 +1,29 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useContext } from "react";
+import { StateContext } from "../utils/context";
 
-const Avatar = props => {
+const Avatar = () => {
+  const { userData } = useContext(StateContext);
+
   return (
     <section id="user__details">
       <div className="user__pic">
-        {props.img && (
-          <img src={props.img} alt={props.user} className="profile-pic" />
+        {userData.avatar_url && (
+          <img
+            src={userData.avatar_url}
+            alt={userData.login}
+            className="profile-pic"
+          />
         )}
       </div>
       <div className="user__info">
-        <h1>{props.user}</h1>
-        {props.name && <div className="name">{props.name}</div>}
-        {props.location && (
+        <h1>{userData.login}</h1>
+        {userData.name && <div className="name">{userData.name}</div>}
+        {userData.location && (
           <div className="location">
             <span className="icon">
               <i className="fas fa-map-marker-alt"></i>
             </span>
-            {props.location}
+            {userData.location}
           </div>
         )}
       </div>
@@ -26,10 +32,3 @@ const Avatar = props => {
 };
 
 export default Avatar;
-
-Avatar.propTypes = {
-  img: PropTypes.string,
-  location: PropTypes.string,
-  name: PropTypes.string,
-  user: PropTypes.string,
-};

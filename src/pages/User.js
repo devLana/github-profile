@@ -1,17 +1,13 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
-import Layout from "../layouts/Layout";
 import Repos from "../components/Repos";
 import Avatar from "../components/Avatar";
 import Bio from "../components/Bio";
 import withUser from "../HOC";
 
-const User = props => {
-  const { userData, reposData, reposLoading, searchBox } = props;
-
+const User = () => {
   return (
-    <Layout searchBox={searchBox}>
+    <>
       <Helmet>
         <link
           rel="stylesheet"
@@ -22,37 +18,13 @@ const User = props => {
       </Helmet>
       <div id="user__container">
         <div className="grid">
-          <Avatar
-            img={userData.avatar_url}
-            user={userData.login}
-            name={userData.name}
-            location={userData.location}
-          />
-          <Bio
-            bio={userData.bio}
-            repos={userData.public_repos}
-            following={userData.following}
-            followers={userData.followers}
-            created={userData.created_at}
-            url={userData.html_url}
-            user={userData.login}
-          />
+          <Avatar />
+          <Bio />
         </div>
-        <Repos
-          user={userData.login}
-          reposData={reposData}
-          reposLoading={reposLoading}
-        />
+        <Repos />
       </div>
-    </Layout>
+    </>
   );
 };
 
 export default withUser(User);
-
-User.propTypes = {
-  reposData: PropTypes.arrayOf(PropTypes.object),
-  reposLoading: PropTypes.bool,
-  searchBox: PropTypes.element,
-  userData: PropTypes.object,
-};

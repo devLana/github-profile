@@ -1,9 +1,11 @@
 import React, { useReducer, useEffect } from "react";
+import PropTypes from "prop-types";
 import initialState from "../state";
-import reducer from "../state/reducer"
+import reducer from "../state/reducer";
 import * as actions from "../state/actions";
 import searchService from "../services";
 import checkObject from "../utils/checkObject";
+import { StateContext } from "../utils/context";
 import Layout from "../layouts/Layout";
 import ShowError from "../components/ShowError";
 import Loader from "../components/Loader";
@@ -13,8 +15,8 @@ const responseCache = new Map();
 let responseObj = {};
 
 const withUser = Component => {
-  const FetchUser = props => {
-    const [state, dispatch] = useReducer(reducer, initialState)
+  const FetchUser = ({ handleRefresh, ...props }) => {
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     const { user } = props.match.params;
 
@@ -97,7 +99,7 @@ const withUser = Component => {
     if (state.isOffline) {
       return (
         <Layout searchBox={searchBox}>
-          <ShowError refresh={props.handleRefresh} />
+          <ShowError refresh={ handleRefresh} />
         </Layout>
       );
     }
@@ -113,7 +115,7 @@ const withUser = Component => {
     if (state.errorType === "network error") {
       return (
         <Layout searchBox={searchBox}>
-          <ShowError error="network" refresh={props.handleRefresh} />
+          <ShowError error="network" refresh={handleRefresh} />
         </Layout>
       );
     }
@@ -135,13 +137,17 @@ const withUser = Component => {
     }
 
     return (
-      <Component
-        userData={state.userData}
-        reposData={state.reposData}
-        reposLoading={state.reposLoading}
-        searchBox={searchBox}
-      />
+      <Layout searchBox={searchBox}>
+        <StateContext.Provider value={state}>
+          <Component />
+        </StateContext.Provider>
+      </Layout>
     );
+  };
+
+  FetchUser.propTypes = {
+    match: PropTypes.object,
+    handleRefresh: PropTypes.func,
   };
 
   return FetchUser;
