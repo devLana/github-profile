@@ -16,6 +16,7 @@ const withUser = Component => {
     const [reposLoading, setReposLoading] = useState(true);
     const [userData, setUserData] = useState({});
     const [reposData, setReposData] = useState([]);
+    const [errorType, setErrorType] = useState("");
 
     const { user } = props.match.params;
 
@@ -69,12 +70,11 @@ const withUser = Component => {
               }
             });
           },
-          (err) => {
+          err => {
+            setLoading(false);
+
             if (err.response) {
-              console.log("1st:- one - ", err)
-              console.log("1st:- two - ", err.response)
               if (err.response.status === 404) {
-                setLoading(false);
                 setUserData({});
 
                 responseObj[query] = {
@@ -83,22 +83,12 @@ const withUser = Component => {
 
                 responseCache.set(query, responseObj);
                 responseObj = {};
+              } else if (err.response.status === 403) {
+                setErrorType("rate limit error");
               }
-            } else if (err.request) {
-              console.log("2nd:- one - ", err)
-              console.log("2nd:- two - ", err.request)
             } else {
-              console.log("3rd:- one - ", err)
+              setErrorType("network error");
             }
-            setLoading(false);
-            setUserData({});
-
-            responseObj[query] = {
-              [query]: {},
-            };
-
-            responseCache.set(query, responseObj);
-            responseObj = {};
           }
         );
       }
@@ -111,11 +101,12 @@ const withUser = Component => {
     const isEmpty = checkObject(userData);
 
     const reset = () => {
-      setIsOffline(false)
+      setIsOffline(false);
       setLoading(true);
       setReposLoading(true);
       setUserData({});
       setReposData([]);
+      setErrorType("");
     };
 
     const searchBox = <SearchBox reset={reset} />;
@@ -124,6 +115,22 @@ const withUser = Component => {
       return (
         <Layout searchBox={searchBox}>
           <ShowError refresh={props.handleRefresh} />
+        </Layout>
+      );
+    }
+
+    if (errorType === "rate limit error") {
+      return (
+        <Layout searchBox={searchBox}>
+          <ShowError error="limit" />
+        </Layout>
+      );
+    }
+
+    if (errorType === "network error") {
+      return (
+        <Layout searchBox={searchBox}>
+          <ShowError error="network" refresh={props.handleRefresh} />
         </Layout>
       );
     }
@@ -139,7 +146,7 @@ const withUser = Component => {
     if (isEmpty) {
       return (
         <Layout searchBox={searchBox}>
-          <ShowError empty query={user} />
+          <ShowError error="not found" query={user} />
         </Layout>
       );
     }
