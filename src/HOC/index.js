@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useReducer, useEffect } from "react";
+import initialState from "../state";
+import reducer from "../state/reducer"
+import * as actions from "../state/actions";
 import searchService from "../services";
 import checkObject from "../utils/checkObject";
 import Layout from "../layouts/Layout";
@@ -11,12 +14,7 @@ let responseObj = {};
 
 const withUser = Component => {
   const FetchUser = props => {
-    const [isOffline, setIsOffline] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const [reposLoading, setReposLoading] = useState(true);
-    const [userData, setUserData] = useState({});
-    const [reposData, setReposData] = useState([]);
-    const [errorType, setErrorType] = useState("");
+    const [state, dispatch] = useReducer(reducer, initialState)
 
     const { user } = props.match.params;
 
@@ -31,34 +29,28 @@ const withUser = Component => {
         const cachedUser = responseCache.get(query);
 
         if (isMounted) {
-          setLoading(false);
-          setUserData(cachedUser[query][query]);
+          dispatch(actions.setUser(cachedUser[query][query]));
 
           if ("repos" in cachedUser[query]) {
-            setReposLoading(false);
-            setReposData(cachedUser[query].repos);
+            dispatch(actions.setRepo(cachedUser[query].repos));
           }
         }
       } else if (!navigator.onLine) {
-        if (isMounted) setIsOffline(true);
+        if (isMounted) dispatch(actions.isOffline());
       } else {
         getUser(query).then(
           userRes => {
             if (isMounted) {
-              setLoading(false);
-              setUserData(userRes);
+              dispatch(actions.setUser(userRes));
 
               responseObj[query] = {
                 [query]: userRes,
               };
-
-              responseCache.set(query, responseObj);
             }
 
             getRepos(query).then(repoData => {
               if (isMounted) {
-                setReposLoading(false);
-                setReposData(repoData);
+                dispatch(actions.setRepo(repoData));
 
                 responseObj[query] = {
                   ...responseObj[query],
@@ -71,11 +63,9 @@ const withUser = Component => {
             });
           },
           err => {
-            setLoading(false);
-
             if (err.response) {
               if (err.response.status === 404) {
-                setUserData({});
+                dispatch(actions.setUser({}));
 
                 responseObj[query] = {
                   [query]: {},
@@ -84,10 +74,10 @@ const withUser = Component => {
                 responseCache.set(query, responseObj);
                 responseObj = {};
               } else if (err.response.status === 403) {
-                setErrorType("rate limit error");
+                dispatch(actions.setError("rate limit error"));
               }
             } else {
-              setErrorType("network error");
+              dispatch(actions.setError("network error"));
             }
           }
         );
@@ -98,20 +88,13 @@ const withUser = Component => {
       };
     }, [user]);
 
-    const isEmpty = checkObject(userData);
+    const isEmpty = checkObject(state.userData);
 
-    const reset = () => {
-      setIsOffline(false);
-      setLoading(true);
-      setReposLoading(true);
-      setUserData({});
-      setReposData([]);
-      setErrorType("");
-    };
+    const reset = () => dispatch(actions.resetState());
 
     const searchBox = <SearchBox reset={reset} />;
 
-    if (isOffline) {
+    if (state.isOffline) {
       return (
         <Layout searchBox={searchBox}>
           <ShowError refresh={props.handleRefresh} />
@@ -119,7 +102,7 @@ const withUser = Component => {
       );
     }
 
-    if (errorType === "rate limit error") {
+    if (state.errorType === "rate limit error") {
       return (
         <Layout searchBox={searchBox}>
           <ShowError error="limit" />
@@ -127,7 +110,7 @@ const withUser = Component => {
       );
     }
 
-    if (errorType === "network error") {
+    if (state.errorType === "network error") {
       return (
         <Layout searchBox={searchBox}>
           <ShowError error="network" refresh={props.handleRefresh} />
@@ -135,7 +118,7 @@ const withUser = Component => {
       );
     }
 
-    if (loading) {
+    if (state.loading) {
       return (
         <Layout>
           <Loader />
@@ -153,9 +136,9 @@ const withUser = Component => {
 
     return (
       <Component
-        userData={userData}
-        reposData={reposData}
-        reposLoading={reposLoading}
+        userData={state.userData}
+        reposData={state.reposData}
+        reposLoading={state.reposLoading}
         searchBox={searchBox}
       />
     );
