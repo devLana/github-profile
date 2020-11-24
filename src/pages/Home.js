@@ -1,6 +1,6 @@
 import React from "react";
-import Layout from "../layouts/Layout";
-import SearchBox from "../layouts/SearchBox";
+import Layout from "../components/Layout";
+import SearchBox from "../components/SearchBox";
 
 const Home = () => {
   document.title = "Github Profile";

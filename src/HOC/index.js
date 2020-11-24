@@ -6,10 +6,10 @@ import * as actions from "../state/actions";
 import searchService from "../services";
 import checkObject from "../utils/checkObject";
 import { StateContext } from "../utils/context";
-import Layout from "../layouts/Layout";
+import Layout from "../components/Layout";
 import ShowError from "../components/ShowError";
 import Loader from "../components/Loader";
-import SearchBox from "../layouts/SearchBox";
+import SearchBox from "../components/SearchBox";
 
 const responseCache = new Map();
 let responseObj = {};
