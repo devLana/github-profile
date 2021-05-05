@@ -19,7 +19,14 @@
     width: 30px;
     height: 30px;
     border-bottom-color: transparent;
-    animation: rotate 1s linear infinite;
+    -webkit-animation: rotate 1s linear infinite;
+            animation: rotate 1s linear infinite;
+  }
+}
+
+@-webkit-keyframes rotate {
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -210,7 +217,8 @@
     display: grid;
     grid-template-areas: "bio repos repos";
     grid-template-columns: 300px 1fr 1fr;
-    column-gap: 35px;
+    -moz-column-gap: 35px;
+         column-gap: 35px;
 
     .grid {
       grid-area: bio;
