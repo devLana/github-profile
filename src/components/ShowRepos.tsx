@@ -1,8 +1,16 @@
 import React from "react";
-import PropTypes from "prop-types";
 import extractDate from "../utils/dateFormat";
 
-const ShowRepos = props => {
+interface ShowReposProps {
+  name: string;
+  description: string;
+  stars: number;
+  forks: number;
+  language: string;
+  created: Date;
+}
+
+const ShowRepos = (props: ShowReposProps) => {
   return (
     <div className="repo">
       <h3>{props.name}</h3>
@@ -10,13 +18,13 @@ const ShowRepos = props => {
       <div className="repo__stats">
         <span className="repo__stars">
           <span className="icon">
-            <i className="fas fa-star"></i>
+            <i className="fas fa-star" />
           </span>
           {props.stars}
         </span>
         <span className="repo__forks">
           <span className="icon">
-            <i className="fas fa-code-branch"></i>
+            <i className="fas fa-code-branch" />
           </span>
           {props.forks}
         </span>
@@ -34,12 +42,3 @@ const ShowRepos = props => {
 };
 
 export default ShowRepos;
-
-ShowRepos.propTypes = {
-  created: PropTypes.string,
-  description: PropTypes.string,
-  forks: PropTypes.number,
-  language: PropTypes.string,
-  name: PropTypes.string,
-  stars: PropTypes.number,
-};

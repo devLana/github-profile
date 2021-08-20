@@ -12,6 +12,7 @@ const Avatar = () => {
             src={userData.avatar_url}
             alt={userData.login}
             className="profile-pic"
+            loading="lazy"
           />
         )}
       </div>

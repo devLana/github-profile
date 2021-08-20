@@ -1,7 +1,10 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-const NoRepo = ({ user }) => {
+interface NoRepoProps {
+  user: string;
+}
+
+const NoRepo = ({ user }: NoRepoProps) => {
   return (
     <div className="no--repo">
       <p>
@@ -12,7 +15,3 @@ const NoRepo = ({ user }) => {
 };
 
 export default NoRepo;
-
-NoRepo.propTypes = {
-  user: PropTypes.string,
-};

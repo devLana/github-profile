@@ -10,7 +10,7 @@ const Home = () => {
       <div id="home--container">
         <h1>Search for a Github user</h1>
         <div className="search-box--container">
-          <SearchBox />
+          <SearchBox autoFocus />
         </div>
       </div>
     </Layout>

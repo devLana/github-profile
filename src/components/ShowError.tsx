@@ -1,7 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-const ShowError = ({ error, query, refresh }) => {
+interface ShowErrorProps {
+  error?: string;
+  query?: string;
+  refresh?: () => void;
+}
+
+const ShowError = ({ error, query, refresh }: ShowErrorProps) => {
   if (error === "not found" && query) {
     return (
       <div className="not-found">
@@ -51,8 +56,3 @@ const ShowError = ({ error, query, refresh }) => {
 };
 
 export default ShowError;
-
-ShowError.propTypes = {
-  empty: PropTypes.bool,
-  user: PropTypes.string,
-};

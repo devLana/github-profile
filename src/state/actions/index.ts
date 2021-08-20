@@ -8,17 +8,17 @@ export const isOffline = () => ({
   type: IS_OFFLINE,
 });
 
-export const setUser = user => ({
+export const setUser = (user: {}) => ({
   type: SET_USER,
   payload: user,
 });
 
-export const setRepo = repo => ({
+export const setRepo = (repo: Array<{}>) => ({
   type: SET_REPO,
   payload: repo,
 });
 
-export const setError = err => ({
+export const setError = (err: string) => ({
   type: SET_ERROR,
   payload: err,
 });

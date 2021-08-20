@@ -1,8 +1,8 @@
-const checkObject = obj => {
+const objectIsEmpty = <T extends object>(obj: T) => {
   for (let key in obj) {
     if (obj.hasOwnProperty(key)) return false;
   }
   return true;
 };
 
-export default checkObject;
+export default objectIsEmpty;

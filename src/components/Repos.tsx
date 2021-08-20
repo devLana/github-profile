@@ -33,19 +33,17 @@ const Repos = () => {
           .sort((a, b) => {
             return b.stargazers_count - a.stargazers_count;
           })
-          .map(item => {
-            return (
-              <ShowRepos
-                key={item.id}
-                name={item.name}
-                description={item.description}
-                stars={item.stargazers_count}
-                forks={item.forks_count}
-                language={item.language}
-                created={item.created_at}
-              />
-            );
-          })
+          .map(item => (
+            <ShowRepos
+              key={item.id}
+              name={item.name}
+              description={item.description}
+              stars={item.stargazers_count}
+              forks={item.forks_count}
+              language={item.language}
+              created={item.created_at}
+            />
+          ))
           .slice(0, 6)}
       </div>
     </section>

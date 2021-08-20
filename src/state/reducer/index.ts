@@ -1,7 +1,13 @@
 import * as actions from "../actions";
 import initialState from "../index";
+import { AppState } from "../../dataTypes";
 
-const reducer = (state, action) => {
+interface ActionType {
+  type: string;
+  payload?: any;
+}
+
+const reducer = (state: AppState, action: ActionType) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -30,7 +36,7 @@ const reducer = (state, action) => {
         ...state,
         errorType: payload,
         loading: false,
-      }
+      };
 
     case actions.RESET:
       return initialState;

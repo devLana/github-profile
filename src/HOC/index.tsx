@@ -1,24 +1,33 @@
 import React, { useReducer, useEffect } from "react";
-import PropTypes from "prop-types";
+import { match } from "react-router-dom";
 import initialState from "../state";
 import reducer from "../state/reducer";
 import * as actions from "../state/actions";
 import searchService from "../services";
-import checkObject from "../utils/checkObject";
+import objectIsEmpty from "../utils/objectIsEmpty";
 import { StateContext } from "../utils/context";
 import Layout from "../components/Layout";
 import ShowError from "../components/ShowError";
 import Loader from "../components/Loader";
 import SearchBox from "../components/SearchBox";
 
-const responseCache = new Map();
-let responseObj = {};
+interface HOCProps {
+  handleRefresh: () => void;
+  match: match<{ user: string }>;
+}
 
-const withUser = Component => {
-  const FetchUser = ({ handleRefresh, ...props }) => {
+interface ResponseObj {
+  [index: string]: any;
+}
+
+let responseObj: ResponseObj = {};
+const responseCache = new Map<string, typeof responseObj>();
+
+const withUser = (Component: React.ComponentType) => {
+  const FetchUser = ({ handleRefresh, match }: HOCProps) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const { user } = props.match.params;
+    const { user } = match.params;
 
     useEffect(() => {
       const query = user.toLowerCase();
@@ -30,7 +39,7 @@ const withUser = Component => {
       if (responseCache.has(query)) {
         const cachedUser = responseCache.get(query);
 
-        if (isMounted) {
+        if (isMounted && cachedUser) {
           dispatch(actions.setUser(cachedUser[query][query]));
 
           if ("repos" in cachedUser[query]) {
@@ -40,7 +49,7 @@ const withUser = Component => {
       } else if (!navigator.onLine) {
         if (isMounted) dispatch(actions.isOffline());
       } else {
-        getUser(query).then(
+        getUser<{}>(query).then(
           userRes => {
             if (isMounted) {
               dispatch(actions.setUser(userRes));
@@ -50,7 +59,7 @@ const withUser = Component => {
               };
             }
 
-            getRepos(query).then(repoData => {
+            getRepos<Array<{}>>(query).then(repoData => {
               if (isMounted) {
                 dispatch(actions.setRepo(repoData));
 
@@ -90,7 +99,7 @@ const withUser = Component => {
       };
     }, [user]);
 
-    const isEmpty = checkObject(state.userData);
+    const objIsEmpty = objectIsEmpty(state.userData);
 
     const reset = () => dispatch(actions.resetState());
 
@@ -99,7 +108,7 @@ const withUser = Component => {
     if (state.isOffline) {
       return (
         <Layout searchBox={searchBox}>
-          <ShowError refresh={ handleRefresh} />
+          <ShowError refresh={handleRefresh} />
         </Layout>
       );
     }
@@ -128,7 +137,7 @@ const withUser = Component => {
       );
     }
 
-    if (isEmpty) {
+    if (objIsEmpty) {
       return (
         <Layout searchBox={searchBox}>
           <ShowError error="not found" query={user} />
@@ -143,11 +152,6 @@ const withUser = Component => {
         </StateContext.Provider>
       </Layout>
     );
-  };
-
-  FetchUser.propTypes = {
-    match: PropTypes.object,
-    handleRefresh: PropTypes.func,
   };
 
   return FetchUser;

@@ -19,8 +19,10 @@ const App = () => {
       <Switch>
         <Route
           path="/:user"
-          render={props =>
-            refresh ? null : <User {...props} handleRefresh={handleRefresh} />
+          render={({ match }) =>
+            refresh ? null : (
+              <User match={match} handleRefresh={handleRefresh} />
+            )
           }
         />
         <Route path="/" component={Home} />

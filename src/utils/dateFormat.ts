@@ -1,4 +1,4 @@
-const extractDate = str => {
+const extractDate = (str: Date) => {
   const months = [
     "January",
     "February",
