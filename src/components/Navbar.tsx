@@ -1,9 +1,10 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import type { SearchBoxType } from "../dataTypes";
 import SearchBox from "./SearchBox";
 
 interface NavbarProps {
-  searchBox?: JSX.Element;
+  searchBox?: SearchBoxType;
 }
 
 const Navbar = ({ searchBox }: NavbarProps) => {

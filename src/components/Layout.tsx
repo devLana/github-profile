@@ -1,9 +1,10 @@
 import React from "react";
+import type { SearchBoxType } from "../dataTypes";
 import Navbar from "./Navbar";
 
 interface LayoutProps {
   children: React.ReactNode;
-  searchBox?: JSX.Element;
+  searchBox?: SearchBoxType;
 }
 
 const Layout = ({ searchBox, children }: LayoutProps) => {

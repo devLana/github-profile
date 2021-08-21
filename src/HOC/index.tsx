@@ -10,6 +10,7 @@ import Layout from "../components/Layout";
 import ShowError from "../components/ShowError";
 import Loader from "../components/Loader";
 import SearchBox from "../components/SearchBox";
+import type { SearchBoxType } from "../dataTypes";
 
 interface HOCProps {
   handleRefresh: () => void;
@@ -49,7 +50,7 @@ const withUser = (Component: React.ComponentType) => {
       } else if (!navigator.onLine) {
         if (isMounted) dispatch(actions.isOffline());
       } else {
-        getUser<{}>(query).then(
+        getUser(query).then(
           userRes => {
             if (isMounted) {
               dispatch(actions.setUser(userRes));
@@ -59,7 +60,7 @@ const withUser = (Component: React.ComponentType) => {
               };
             }
 
-            getRepos<Array<{}>>(query).then(repoData => {
+            getRepos(query).then(repoData => {
               if (isMounted) {
                 dispatch(actions.setRepo(repoData));
 
@@ -74,7 +75,7 @@ const withUser = (Component: React.ComponentType) => {
             });
           },
           err => {
-            if (err.response) {
+            if (err && err.response) {
               if (err.response.status === 404) {
                 dispatch(actions.setUser({}));
 
@@ -103,7 +104,7 @@ const withUser = (Component: React.ComponentType) => {
 
     const reset = () => dispatch(actions.resetState());
 
-    const searchBox = <SearchBox reset={reset} />;
+    const searchBox: SearchBoxType = <SearchBox reset={reset} />;
 
     if (state.isOffline) {
       return (

@@ -11,7 +11,7 @@ const SearchBox = ({ reset, autoFocus }: SearchBoxProps) => {
 
   const history = useHistory();
   const location = useLocation();
-  const { user }: { user: string } = useParams();
+  const { user } = useParams<{ user: string }>();
 
   const inputElement = useRef<HTMLInputElement>(null);
   const searchBox = useRef<HTMLDivElement>(null);
