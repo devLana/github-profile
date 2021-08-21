@@ -3,8 +3,8 @@ export type AppState = {
   loading: boolean;
   reposLoading: boolean;
   userData: any;
-  // userData: T;
   reposData: Array<any>;
-  // reposData: Array<T>;
   errorType: string;
 };
+
+export type SearchBoxType = React.ReactElement | JSX.Element;
