@@ -2,7 +2,6 @@ import React, { useReducer, useEffect } from "react";
 import { match } from "react-router-dom";
 import initialState from "../state";
 import reducer from "../state/reducer";
-import * as actions from "../state/actions";
 import searchService from "../services";
 import objectIsEmpty from "../utils/objectIsEmpty";
 import { StateContext } from "../utils/context";
@@ -11,6 +10,7 @@ import ShowError from "../components/ShowError";
 import Loader from "../components/Loader";
 import SearchBox from "../components/SearchBox";
 import type { SearchBoxType } from "../dataTypes";
+import { Constants } from "../state/constants";
 
 interface HOCProps {
   handleRefresh: () => void;
@@ -41,19 +41,25 @@ const withUser = (Component: React.ComponentType) => {
         const cachedUser = responseCache.get(query);
 
         if (isMounted && cachedUser) {
-          dispatch(actions.setUser(cachedUser[query][query]));
+          dispatch({
+            type: Constants.SET_USER,
+            payload: cachedUser[query][query],
+          });
 
           if ("repos" in cachedUser[query]) {
-            dispatch(actions.setRepo(cachedUser[query].repos));
+            dispatch({
+              type: Constants.SET_REPO,
+              payload: cachedUser[query].repos,
+            });
           }
         }
       } else if (!navigator.onLine) {
-        if (isMounted) dispatch(actions.isOffline());
+        if (isMounted) dispatch({ type: Constants.IS_OFFLINE });
       } else {
         getUser(query).then(
           userRes => {
             if (isMounted) {
-              dispatch(actions.setUser(userRes));
+              dispatch({ type: Constants.SET_USER, payload: userRes });
 
               responseObj[query] = {
                 [query]: userRes,
@@ -62,7 +68,7 @@ const withUser = (Component: React.ComponentType) => {
 
             getRepos(query).then(repoData => {
               if (isMounted) {
-                dispatch(actions.setRepo(repoData));
+                dispatch({ type: Constants.SET_REPO, payload: repoData });
 
                 responseObj[query] = {
                   ...responseObj[query],
@@ -77,7 +83,7 @@ const withUser = (Component: React.ComponentType) => {
           err => {
             if (err && err.response) {
               if (err.response.status === 404) {
-                dispatch(actions.setUser({}));
+                dispatch({ type: Constants.SET_USER, payload: {} });
 
                 responseObj[query] = {
                   [query]: {},
@@ -86,10 +92,13 @@ const withUser = (Component: React.ComponentType) => {
                 responseCache.set(query, responseObj);
                 responseObj = {};
               } else if (err.response.status === 403) {
-                dispatch(actions.setError("rate limit error"));
+                dispatch({
+                  type: Constants.SET_ERROR,
+                  payload: "rate limit error",
+                });
               }
             } else {
-              dispatch(actions.setError("network error"));
+              dispatch({ type: Constants.SET_ERROR, payload: "network error" });
             }
           }
         );
@@ -102,7 +111,7 @@ const withUser = (Component: React.ComponentType) => {
 
     const objIsEmpty = objectIsEmpty(state.userData);
 
-    const reset = () => dispatch(actions.resetState());
+    const reset = () => dispatch({ type: Constants.RESET });
 
     const searchBox: SearchBoxType = <SearchBox reset={reset} />;
 
