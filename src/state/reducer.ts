@@ -1,10 +1,10 @@
-import type { AppState, ErrorType } from "../dataTypes";
+import type { AppState, ErrorType, ObjectType } from "../dataTypes";
 import { Constants } from "./constants";
 
 type ActionType =
   | { type: Constants.IS_OFFLINE }
-  | { type: Constants.SET_USER; payload: any }
-  | { type: Constants.SET_REPO; payload: Array<any> }
+  | { type: Constants.SET_USER; payload: ObjectType }
+  | { type: Constants.SET_REPO; payload: Array<ObjectType> }
   | { type: Constants.SET_ERROR; payload: ErrorType }
   | { type: Constants.RESET };
 

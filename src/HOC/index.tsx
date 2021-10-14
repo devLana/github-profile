@@ -9,7 +9,7 @@ import Layout from "../components/Layout";
 import ShowError from "../components/ShowError";
 import Loader from "../components/Loader";
 import SearchBox from "../components/SearchBox";
-import type { SearchBoxType } from "../dataTypes";
+import type { ObjectType, SearchBoxType } from "../dataTypes";
 import { Constants } from "../state/constants";
 
 interface HOCProps {
@@ -17,11 +17,7 @@ interface HOCProps {
   match: match<{ user: string }>;
 }
 
-interface ResponseObj {
-  [index: string]: any;
-}
-
-let responseObj: ResponseObj = {};
+let responseObj: ObjectType = {};
 const responseCache = new Map<string, typeof responseObj>();
 
 const withUser = (Component: React.ComponentType) => {
