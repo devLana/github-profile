@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import ShowRepos from "./ShowRepos";
 import NoRepo from "./NoRepo";
 import Loader from "./Loader";
+import Pagination from "./Pagination";
 import { StateContext } from "../utils/context";
 
 const Repos = () => {
   const { userData, reposData, reposLoading } = useContext(StateContext);
+  const [page, setPage] = useState(1);
 
   if (reposLoading) {
     return (
@@ -25,14 +27,19 @@ const Repos = () => {
     );
   }
 
+  const reposPerPage = 6;
+  const totalPages = Math.ceil(reposData.length / reposPerPage);
+  const lastIndex = reposPerPage * page;
+  const firstIndex = lastIndex - reposPerPage;
+
   return (
     <section id="user__repositories">
-      <h2>Repositories</h2>
       <div id="repos__container">
         {reposData
           .sort((a, b) => {
             return b.stargazers_count - a.stargazers_count;
           })
+          .slice(firstIndex, lastIndex)
           .map(item => (
             <ShowRepos
               key={item.id}
@@ -43,9 +50,9 @@ const Repos = () => {
               language={item.language}
               created={item.created_at}
             />
-          ))
-          .slice(0, 6)}
+          ))}
       </div>
+      <Pagination page={page} setPage={setPage} totalPages={totalPages} />
     </section>
   );
 };

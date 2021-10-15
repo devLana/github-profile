@@ -20,7 +20,7 @@
     height: 30px;
     border-bottom-color: transparent;
     -webkit-animation: rotate 1s linear infinite;
-            animation: rotate 1s linear infinite;
+    animation: rotate 1s linear infinite;
   }
 }
 
@@ -118,7 +118,7 @@
 
   #user__bio {
     padding-bottom: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
     border-bottom: $border;
 
     .bio {
@@ -165,6 +165,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
       gap: 30px;
+      margin-bottom: 60px;
 
       .repo {
         @include borders(repo);
@@ -212,13 +213,63 @@
   }
 }
 
+.pagination__container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.pagination--prev {
+  margin-right: 20px;
+}
+
+.pagination--next {
+  margin-left: 20px;
+}
+
+.pagination--prev > button,
+.pagination--next > button {
+  height: 100%;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background-color: transparent;
+  color: $primaryColor;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease-in;
+
+  &:hover {
+    color: $primaryColorLight;
+    border: 1px solid $primaryColorLight;
+  }
+}
+
+.pagination--page-wrapper {
+  display: flex;
+  width: 75px;
+
+  input {
+    padding: 10px 5px;
+    font-size: 16px;
+    font-family: $Montserrat;
+    text-align: center;
+    width: 60%;
+  }
+
+  span {
+    align-self: center;
+  }
+}
+
 @media screen and (min-width: 992px) {
   #user__container {
+    padding-top: 60px;
     display: grid;
     grid-template-areas: "bio repos repos";
     grid-template-columns: 300px 1fr 1fr;
     -moz-column-gap: 35px;
-         column-gap: 35px;
+    column-gap: 35px;
 
     .grid {
       grid-area: bio;
