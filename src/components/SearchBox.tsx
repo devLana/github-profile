@@ -52,8 +52,8 @@ const SearchBox = ({ reset, autoFocus }: SearchBoxProps) => {
     if (search === "") return;
     if (search === user) return;
 
-    history.push(`/${search}`);
     if (reset) reset();
+    history.push(`/${search}`);
   };
 
   return (

@@ -1,3 +1,4 @@
+import initialState from ".";
 import type { AppState, ErrorType, ObjectType } from "../dataTypes";
 import { Constants } from "./constants";
 
@@ -38,8 +39,10 @@ const reducer = (state: AppState, action: ActionType): AppState => {
       };
 
     case Constants.RESET:
+      return initialState;
+
     default:
-      return state;
+      throw new Error("unknown action dispatched");
   }
 };
 
