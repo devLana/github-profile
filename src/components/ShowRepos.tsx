@@ -1,16 +1,16 @@
 import React from "react";
 import extractDate from "../utils/dateFormat";
 
-interface ShowReposProps {
-  name: string;
-  description: string;
-  stars: number;
-  forks: number;
-  language: string;
+interface ShowReposProps<T, U> {
+  name: T;
+  description: T;
+  stars: U;
+  forks: U;
+  language: T;
   created: Date;
 }
 
-const ShowRepos = (props: ShowReposProps) => {
+const ShowRepos = (props: ShowReposProps<string, number>) => {
   return (
     <div className="repo">
       <h3>{props.name}</h3>

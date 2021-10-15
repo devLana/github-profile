@@ -1,12 +1,12 @@
 import React from "react";
 
-interface ShowErrorProps {
-  error?: string;
-  query?: string;
+interface ShowErrorProps<T> {
+  error?: T;
+  query?: T;
   refresh?: () => void;
 }
 
-const ShowError = ({ error, query, refresh }: ShowErrorProps) => {
+const ShowError = ({ error, query, refresh }: ShowErrorProps<string>) => {
   if (error === "not found" && query) {
     return (
       <div className="not-found">
